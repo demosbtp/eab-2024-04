@@ -3,6 +3,10 @@ name: Create a new project via Terraform
 on:
   workflow_dispatch:
 
+env:
+  PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
+  MTA_PATH: ''
+
 jobs:
   execute_infra_setuup:
     name: Project Setup
@@ -19,29 +23,40 @@ jobs:
       with:
         terraform_wrapper: false
         terraform_version: latest
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: 20    
-
-    - name: Install npm dependencies
-      id: install_node_dependencies
+    
+    - name: Detect MTA.yaml
+      id :  detect_mta
       run: |
-        cd .github/scripts
-        npm ci
-
-     - name: "Create tfvars file for services"
-       id: create_service_tfvars
-        run: |
-          cd .github/scripts
-          export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
-          export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
-          npm run build:servicetfvars
-   
-    - name: Show created files
+        echo "MTA_PATH=$(find -type f -name 'mta.yaml')" >> $GITHUB_ENV     
+        
+    - name: show path MTA.yaml
+      id :  show_path
       run: |
-        ls -la scripts/setup_dev_account    
+        echo env.MTA_PATH
+        echo env.PATH_TO_TFSCRIPT  
+        
+#    - name: Setup Node.js
+#      uses: actions/setup-node@v4
+#      with:
+#        node-version: 20    
+#
+#    - name: Install npm dependencies
+#      id: install_node_dependencies
+#      run: |
+#        cd .github/scripts
+#        npm ci
+#
+#     - name: "Create tfvars file for services"
+#       id: create_service_tfvars
+#        run: |
+#          cd .github/scripts
+#          export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
+#          export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
+#          npm run build:servicetfvars
+#   
+#    - name: Show created files
+#      run: |
+#        ls -la scripts/setup_dev_account    
 
    # - name: Terraform Init
    #   id: terraform_init
