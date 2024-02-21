@@ -3,12 +3,8 @@ name: Create a new project via Terraform
 on:
   workflow_dispatch:
 
-env:
-  PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
-  MTA_PATH: ''
-
 jobs:
-  execute_infra_setup:
+  execute_infra_setuup:
     name: Project Setup
     runs-on: ubuntu-latest
 
