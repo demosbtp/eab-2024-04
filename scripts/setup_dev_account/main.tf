@@ -53,3 +53,30 @@ resource "btp_subaccount_role_collection_assignment" "ai_launchpad_role_mapping"
   user_name            = each.value.user_name
   depends_on           = [btp_subaccount_subscription.bas]
 }
+
+###
+# Create Cloud Foundry environment
+###
+module "cloudfoundry_environment" {
+  source = "../modules/environment/cloudfoundry/envinstance_cf"
+
+  subaccount_id           = btp_subaccount.eab.id
+  instance_name           = "cf-instance"
+  cf_org_name             = "eab-2024-04"
+  cf_org_managers         = []
+  cf_org_billing_managers = []
+  cf_org_auditors         = []
+}
+
+
+###
+# Create Cloud Foundry space and assign users
+###
+module "cloudfoundry_space" {
+  source              = "../modules/environment/cloudfoundry/space_cf"
+  cf_org_id           = module.cloudfoundry_environment.cf_org_id
+  name                = "dev"
+  cf_space_managers   = var.admins
+  cf_space_developers = var.admins
+  cf_space_auditors   = var.admins
+}
