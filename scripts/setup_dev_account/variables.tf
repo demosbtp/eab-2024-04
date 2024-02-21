@@ -30,6 +30,7 @@ variable "role_collections_for_use_case" {
     "Business_Application_Studio_Developer",
     "Business_Application_Studio_Extension_Deployer",
     "Subaccount Administrator",
+    "Subaccount Service Administrator"
   ]
 
 }

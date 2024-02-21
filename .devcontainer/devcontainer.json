@@ -14,8 +14,14 @@
 				"Github.copilot"
 			],
 			// Set *default* container specific settings.json values on container create.
-			"settings": {
+			"settings": {	
+
+			},	
+			"dev.containers.defaultFeatures": {
+				"ghcr.io/devcontainers/features/github-cli:1": {}
 			}
 		}
 	}
+
+	
 }
