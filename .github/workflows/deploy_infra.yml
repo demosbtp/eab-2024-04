@@ -31,13 +31,13 @@ jobs:
         cd .github/scripts
         npm ci
 
-   #  - name: "Create tfvars file for services"
-   #    id: create_service_tfvars
-   #    run: |
-   #      cd .github/scripts
-   #      export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
-   #      export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
-   #      npm run build:servicetfvars
+     - name: "Create tfvars file for services"
+       id: create_service_tfvars
+       run: |
+         cd .github/scripts
+         export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
+         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
+         npm run build:servicetfvars
    
     #- name: Show created files
     #  run: |
