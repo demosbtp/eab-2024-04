@@ -43,7 +43,6 @@ jobs:
           npm run build:servicetfvars
    
     - name: Show created files
-      id :  
       run: |
         ls -la scripts/setup_dev_account    
 
