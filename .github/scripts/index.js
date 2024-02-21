@@ -7,8 +7,9 @@ const path = require('path')
 
 async function createTfvarsEntitlements() {
 
-    const mtaPath = process.env.MTA_PATH || `src${path.sep}cap-demo${path.sep}mta.yaml`;
-    const targetPath = process.env.PATH_TO_TFSCRIPT || `scripts${path.sep}setup_dev_account`;
+    const normalizedPath = `..${path.sep}..${path.sep}`
+    const mtaPath = (process.env.MTA_PATH) ? `${normalizedPath}${process.env.MTA_PATH}` : `${normalizedPath}src${path.sep}cap-demo${path.sep}mta.yaml`;
+    const targetPath = (process.env.PATH_TO_TFSCRIPT) ? `${normalizedPath}${process.env.PATH_TO_TFSCRIPT}` : `${normalizedPath}scripts${path.sep}setup_dev_account`;
 
     try {
         const yamlData = yaml.load(fs.readFileSync(mtaPath, 'utf8'));
