@@ -9,3 +9,5 @@ sample_my.tfvars
 *.code-workspace
 
 *.env*
+
+node_modules
