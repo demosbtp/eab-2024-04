@@ -49,13 +49,3 @@ resource "btp_subaccount_environment_instance" "cf" {
     instance_name = var.cf_org_name
   })
 }
-
-# ------------------------------------------------------------------------------------------------------
-# Create the Cloud Foundry org users
-# ------------------------------------------------------------------------------------------------------
-resource "cloudfoundry_org_users" "org_users" {
-  org              = btp_subaccount_environment_instance.cf.platform_id
-  managers         = var.cf_org_managers
-  billing_managers = var.cf_org_billing_managers
-  auditors         = var.cf_org_auditors
-}
