@@ -1,4 +1,4 @@
-name: Create a new basis project via Terraform
+name: Create a new project via Terraform
 
 on:
   workflow_dispatch:
@@ -27,7 +27,7 @@ jobs:
     - name: Detect MTA.yaml
       id :  detect_mta
       run: |
-        MTA_PATH=$(locate mta.yaml) >> $GITHUB_ENV     
+        MTA_PATH=$(find mta.yaml) >> $GITHUB_ENV     
         
     - name: show path MTA.yaml
       id :  show_path
