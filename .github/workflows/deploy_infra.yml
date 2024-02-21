@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  execute_infra_setup:
+  execute_infra_setuup:
     name: Project Setup
     runs-on: ubuntu-latest
 
