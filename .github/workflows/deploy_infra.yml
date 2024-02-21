@@ -25,11 +25,11 @@ jobs:
       with:
         node-version: 20    
 
-   # - name: Install npm dependencies
-   #   id: install_node_dependencies
-   #   run: |
-   #     cd .github/scripts
-   #     npm ci
+    - name: Install npm dependencies
+      id: install_node_dependencies
+      run: |
+        cd .github/scripts
+        npm ci
 
    #  - name: "Create tfvars file for services"
    #    id: create_service_tfvars
