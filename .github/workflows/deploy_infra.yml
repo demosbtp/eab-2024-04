@@ -7,7 +7,9 @@ jobs:
   execute_infra_setup:
     name: Project Setup
     runs-on: ubuntu-latest
-
+    env: 
+      PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
+      MTA_PATH: ''
     steps:
     - name: Check out Git repository
       id: checkout_repo
@@ -31,13 +33,13 @@ jobs:
         cd .github/scripts
         npm ci
 
-     - name: "Create tfvars file for services"
-       id: create_service_tfvars
-       run: |
-         cd .github/scripts
-         export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
-         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
-         npm run build:servicetfvars
+    - name: "Create tfvars file for services"
+      id: create_service_tfvars
+      run: |
+        cd .github/scripts
+        export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
+        export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
+        npm run build:servicetfvars
    
     #- name: Show created files
     #  run: |
