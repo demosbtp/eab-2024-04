@@ -1,0 +1,9 @@
+# Terraform specific local files
+.terraform*
+terraform.tfstate*
+*.log
+secret.auto.tfvars
+terraform.tfvars
+sample_my.tfvars
+
+*.code-workspace

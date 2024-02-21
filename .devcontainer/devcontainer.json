@@ -1,0 +1,21 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.166.1/containers/javascript-node
+{
+	"name": "EAB meeting April 2024",
+	"build": {
+		// Linking to the Dockerfile that has all the BTP development tools
+		"dockerfile": "../config/Dockerfile",
+		"context": "../"
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"hashicorp.terraform",
+				"Github.copilot"
+			],
+			// Set *default* container specific settings.json values on container create.
+			"settings": {
+			}
+		}
+	}
+}
