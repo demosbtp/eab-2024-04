@@ -29,7 +29,12 @@ jobs:
       run: |
         MTA_PATH=$(locate xorg.conf) >> $GITHUB_ENV     
         
-  
+    - name: show path MTA.yaml
+      id :  show_path
+      run: |
+        echo env.MTA_PATH
+        echo env.PATH_TO_TFSCRIPT     
+          
    # - name: Terraform Init
    #   id: terraform_init
    #   shell: bash
