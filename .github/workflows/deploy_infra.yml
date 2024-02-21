@@ -27,7 +27,7 @@ jobs:
     - name: Detect MTA.yaml
       id :  detect_mta
       run: |
-        MTA_PATH=$(find mta.yaml) >> $GITHUB_ENV     
+        MTA_PATH=$(find -type f -name "mta.yaml") >> $GITHUB_ENV     
         
     - name: show path MTA.yaml
       id :  show_path
