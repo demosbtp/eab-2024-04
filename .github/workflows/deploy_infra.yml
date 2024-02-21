@@ -3,11 +3,8 @@ name: Create a new project via Terraform
 on:
   workflow_dispatch:
 
-env:
-  PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
-
 jobs:
-  execute_infra_setuup:
+  execute_infra_setup:
     name: Project Setup
     runs-on: ubuntu-latest
 
@@ -38,7 +35,7 @@ jobs:
        id: create_service_tfvars
         run: |
           cd .github/scripts
-          export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT }} 
+          export PATH_TO_TFSCRIPT='scripts/setup_dev_account' 
           export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
           npm run build:servicetfvars
    
