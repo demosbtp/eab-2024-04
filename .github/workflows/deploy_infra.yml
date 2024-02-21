@@ -41,9 +41,9 @@ jobs:
         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
         npm run build:servicetfvars
    
-    #- name: Show created files
-    #  run: |
-    #    ls -la scripts/setup_dev_account    
+    - name: Show created files
+      run: |
+        ls -la scripts/setup_dev_account    
    
    # - name: Terraform Init
    #   id: terraform_init
