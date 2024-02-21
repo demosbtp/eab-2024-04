@@ -5,7 +5,6 @@ on:
 
 env:
   PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
-  MTA_PATH: ''
 
 jobs:
   execute_infra_setuup:
@@ -23,18 +22,31 @@ jobs:
       with:
         terraform_wrapper: false
         terraform_version: latest
-    
-    - name: Detect MTA.yaml
-      id :  detect_mta
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20    
+
+    - name: Install npm dependencies
+      id: install_node_dependencies
       run: |
-        echo "MTA_PATH=$(find -type f -name 'mta.yaml')" >> $GITHUB_ENV     
-        
-    - name: show path MTA.yaml
-      id :  show_path
+        cd .github/scripts
+        npm ci
+
+     - name: "Create tfvars file for services"
+       id: create_service_tfvars
+        run: |
+          cd .github/scripts
+          export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT }} 
+          export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
+          npm run build:servicetfvars
+   
+    - name: Show created files
+      id :  
       run: |
-        echo env.MTA_PATH
-        echo env.PATH_TO_TFSCRIPT     
-          
+        ls -la scripts/setup_dev_account    
+
    # - name: Terraform Init
    #   id: terraform_init
    #   shell: bash
