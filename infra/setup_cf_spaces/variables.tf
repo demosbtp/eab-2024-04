@@ -20,5 +20,5 @@ variable "cf_org_name" {
 
 variable "folder_cap_mtar" {
   type        = string
-  description = "Path to the mta archive file." 
+  description = "Path to the mta archive file."
 }

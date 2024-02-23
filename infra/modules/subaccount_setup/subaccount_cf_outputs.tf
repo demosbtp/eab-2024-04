@@ -13,7 +13,6 @@ output "cf_org_name" {
   description = "ID of the Cloud Foundry org."
 }
 
-
 output "cf_api_endpoint" {
   value       = module.cloudfoundry_environment.cf_api_endpoint
   description = "API endpoint of the Cloud Foundry environment."

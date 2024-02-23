@@ -11,7 +11,7 @@ variable "subaccount_name" {
 variable "regions" {
   type        = list(string)
   description = "The regions where the subaccount shall be created."
-  default     = ["us10"]
+  default     = ["us10", "eu10"]
 }
 
 variable "admins" {
