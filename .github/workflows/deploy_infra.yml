@@ -49,6 +49,11 @@ jobs:
       run: |
         terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
 
+    - name: Terraform Init for Subaccount
+      shell: bash
+      run: |
+        less ${{ env.PATH_TO_TFSCRIPT_SA }}/serviceentitlements.tfvars'    
+    
     - name: Terraform Apply Subaccount Setup
       id: terraform_apply_sa
       shell: bash
@@ -57,7 +62,7 @@ jobs:
         export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
         export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
         terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var subaccount_name='EAB 2024 04' -var admins='["christian.lechner@sap.com"]' -var-file='serviceentitlements.tfvars'
-    #    echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
+        echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
     
     #- name: Terraform Setup for Cloud Foundry
     #  id: terraform_setup_cf
