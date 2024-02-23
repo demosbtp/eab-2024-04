@@ -28,11 +28,5 @@ variable "entitlements" {
     amount = number
   }))
   description = "Map of entitlements to be created in the subaccount"
-  # default = [
-  #   {
-  #     name   = "auditlog-viewer"
-  #     plan   = "free"
-  #     amount = null
-  #   }
-  # ]
+
 }
