@@ -42,16 +42,6 @@ resource "btp_subaccount_entitlement" "additional_entitlements" {
   plan_name       = each.value.plan
 }
 
-# # ------------------------------------------------------------------------------------------------------
-# # Create Cloud Foundry entitlement in the subaccount
-# # ------------------------------------------------------------------------------------------------------
-# resource "btp_subaccount_entitlement" "cloudfoundry" {
-#   subaccount_id = btp_subaccount.eab.id
-#   service_name  = "APPLICATION_RUNTIME"
-#   plan_name     = "MEMORY"
-#   amount        = 1
-# }
-
 # ------------------------------------------------------------------------------------------------------
 # Create Cloud Foundry environment
 # ------------------------------------------------------------------------------------------------------
