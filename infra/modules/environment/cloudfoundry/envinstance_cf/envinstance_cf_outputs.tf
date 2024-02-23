@@ -8,6 +8,11 @@ output "cf_org_id" {
   description = "ID of the Cloud Foundry org."
 }
 
+output "cf_org_name" {
+  value       = var.cf_org_name
+  description = "ID of the Cloud Foundry org."
+}
+
 output "cf_api_endpoint" {
   value       = lookup(jsondecode(btp_subaccount_environment_instance.cf.labels), "API Endpoint", "not found")
   description = "API endpoint of the Cloud Foundry environment."

@@ -50,8 +50,7 @@ module "cloudfoundry_environment" {
 
   subaccount_id = btp_subaccount.eab.id
   instance_name = "cf-instance"
-  cf_org_name   = "eab-2024-04"
-
+  cf_org_name   = var.cf_org_name
 }
 
 

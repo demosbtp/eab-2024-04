@@ -20,7 +20,6 @@ variable "admins" {
   description = "Defines the colleagues who are added to each subaccount as emergency administrators."
 }
 
-
 # Define roles for a user of the SAP AI Launchpad
 variable "role_collections_for_use_case" {
   type        = list(string)
@@ -32,7 +31,6 @@ variable "role_collections_for_use_case" {
 
 }
 
-
 variable "tfvarsEntitlements" {
   type        = list(object({
     name   = string
@@ -40,4 +38,10 @@ variable "tfvarsEntitlements" {
     amount = number
   }))
   description = "Map of entitlements to be created in the subaccount"
+}
+
+variable "cf_org_name" {
+  type        = string
+  description = "Name of the Cloud Foundry org."
+  default     = "eab-2024-04"
 }
