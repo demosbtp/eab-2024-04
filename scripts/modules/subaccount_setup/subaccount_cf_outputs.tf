@@ -12,3 +12,8 @@ output "cf_api_endpoint" {
   value       = module.cloudfoundry_environment.cf_api_endpoint
   description = "API endpoint of the Cloud Foundry environment."
 }
+
+output "admins" {
+  value       = var.admins
+  description = "Defines the colleagues who are added to each subaccount as emergency administrators."
+}
