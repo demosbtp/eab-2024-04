@@ -34,18 +34,3 @@ variable "cf_org_name" {
     error_message = "The Cloud Foundry org name must not be emtpy and not exceed 255 characters."
   }
 }
-
-variable "cf_org_managers" {
-  type        = list(string)
-  description = "List of Cloud Foundry org managers."
-}
-
-variable "cf_org_billing_managers" {
-  type        = list(string)
-  description = "List of Cloud Foundry org billing managers."
-}
-
-variable "cf_org_auditors" {
-  type        = list(string)
-  description = "List of Cloud Foundry org auditors."
-}

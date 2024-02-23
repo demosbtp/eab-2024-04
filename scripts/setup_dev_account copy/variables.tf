@@ -11,7 +11,7 @@ variable "subaccount_name" {
 variable "regions" {
   type        = list(string)
   description = "The regions where the subaccount shall be created."
-  default     = ["eu10", "us10"]
+  default = [ "eu10", "us10", "jp10" ]
 
 }
 
@@ -22,7 +22,7 @@ variable "admins" {
 
 
 variable "tfvarsEntitlements" {
-  type = list(object({
+  type        = list(object({
     name   = string
     plan   = string
     amount = number
@@ -30,8 +30,8 @@ variable "tfvarsEntitlements" {
   description = "Map of entitlements to be created in the subaccount"
   default = [
     {
-      name   = "cloud-logging"
-      plan   = "standard"
+      name = "cloud-logging"
+      plan = "standard"
       amount = null
     }
   ]
