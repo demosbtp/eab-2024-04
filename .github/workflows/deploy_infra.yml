@@ -42,32 +42,26 @@ jobs:
         export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT_SA }} 
         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
         npm run build:servicetfvars
-   
-    - name: Check for tfvars
-      shell: bash
-      run: |
-        less ${{ env.PATH_TO_TFSCRIPT_SA }}/serviceentitlements.tfvars
-
+  
     - name: Terraform Init for Subaccount
       id: terraform_init_sa
       shell: bash
       run: |
         terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
 
-    #- name: Terraform Apply Subaccount Setup
-    #  id: terraform_apply_sa
-    #  shell: bash
-    #  # We do not store the state - in a real setup we would reference a remote backend to store the state
-    #  run: |
-    #    export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
-    #    export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply \
-    #      -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
-    #      -var subaccount_name="EAB 2024 04" \
-    #      -var admins='["christian.lechner@sap.com"]' \ 
-    #      -var-file='serviceentitlements.tfvars' \
-    #      -auto-approve -no-color 
-    #    echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
+    - name: Terraform Apply Subaccount Setup
+      id: terraform_apply_sa
+      shell: bash
+      # We do not store the state - in a real setup we would reference a remote backend to store the state
+      run: |
+        export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
+        export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply -auto-approve -no-color \
+          -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
+          -var subaccount_name="EAB 2024 04" \
+          -var admins='["christian.lechner@sap.com"]' \ 
+          -var-file='serviceentitlements.tfvars' \
+        echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
     
     #- name: Terraform Setup for Cloud Foundry
     #  id: terraform_setup_cf
@@ -79,8 +73,8 @@ jobs:
     #    SHELL SCRIPT - LOOP NEEEDED
     # 
     #    export CF_API_URL=$(echo $CF_API_DETAILS | jq -r '.api_url')  
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} apply \
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color \ 
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} apply -auto-approve -no-color\
     #     -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
     #     -var-file='serviceentitlements.tfvars' \
-    #     -auto-approve -no-color    
+    #        
