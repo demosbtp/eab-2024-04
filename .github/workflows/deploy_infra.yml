@@ -71,4 +71,5 @@ jobs:
     #    export CF_USER=${{ secrets.BTP_USERNAME }}
     #    export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
     #    export PATH_TO_TFSCRIPT_CF=${{ env.PATH_TO_TFSCRIPT_SA }}
+    #    export CF_API_DETAILS=${{ env.CF_API_DETAILS }}
     #    ./.github/scripts/setup_cf_spaces.bash 
