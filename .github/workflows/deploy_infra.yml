@@ -52,7 +52,7 @@ jobs:
     - name: Terraform Init for Subaccount
       shell: bash
       run: |
-        less ${{ env.PATH_TO_TFSCRIPT_SA }}/serviceentitlements.tfvars'    
+        less '${{ env.PATH_TO_TFSCRIPT_SA }}/serviceentitlements.tfvars'    
     
     - name: Terraform Apply Subaccount Setup
       id: terraform_apply_sa
