@@ -43,6 +43,26 @@ resource "btp_subaccount_subscription" "bas" {
 }
 
 # ------------------------------------------------------------------------------------------------------
+# Create entitlements in the subaccount for additional services
+# ------------------------------------------------------------------------------------------------------
+resource "btp_subaccount_subscription" "additional_entitlements" {
+  for_each = var.tfvarsEntitlements
+  subaccount_id = btp_subaccount.eab.id
+  app_name      = each.value.name
+  plan_name     = each.value.plan
+}
+
+# ------------------------------------------------------------------------------------------------------
+# Create app subscription to SAP Business Application Studio
+# ------------------------------------------------------------------------------------------------------
+resource "btp_subaccount_subscription" "bas" {
+  subaccount_id = btp_subaccount.eab.id
+  app_name      =  "sapappstudio"
+  plan_name     = "standard-edition"
+  depends_on = [ btp_subaccount_entitlement.bas ]
+}
+
+# ------------------------------------------------------------------------------------------------------
 # Assign role collections to admins
 # ------------------------------------------------------------------------------------------------------
 # Assign users to Role Collection of SAP AI Launchpad
@@ -54,9 +74,9 @@ resource "btp_subaccount_role_collection_assignment" "ai_launchpad_role_mapping"
   depends_on           = [btp_subaccount_subscription.bas]
 }
 
-###
+# ------------------------------------------------------------------------------------------------------
 # Create Cloud Foundry environment
-###
+# ------------------------------------------------------------------------------------------------------
 module "cloudfoundry_environment" {
   source = "../modules/environment/cloudfoundry/envinstance_cf"
 
@@ -68,10 +88,9 @@ module "cloudfoundry_environment" {
   cf_org_auditors         = []
 }
 
-
-###
+# ------------------------------------------------------------------------------------------------------
 # Create Cloud Foundry space and assign users
-###
+# ------------------------------------------------------------------------------------------------------
 module "cloudfoundry_space" {
   source              = "../modules/environment/cloudfoundry/space_cf"
   cf_org_id           = module.cloudfoundry_environment.cf_org_id

@@ -34,3 +34,16 @@ variable "role_collections_for_use_case" {
   ]
 
 }
+
+variable "tfvarsEntitlements" {
+  type        = map(string)
+  description = "Map of entitlements to be created in the subaccount"
+  default = [
+    {
+      name = "cloud-logging"
+      plan = "standard"
+      amount = null
+    }
+  ]
+  
+}
