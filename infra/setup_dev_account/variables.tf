@@ -28,11 +28,11 @@ variable "tfvarsEntitlements" {
     amount = number
   }))
   description = "Map of entitlements to be created in the subaccount"
-  default = [
-    {
-      name   = "auditlog-viewer"
-      plan   = "free"
-      amount = null
-    }
-  ]
+  # default = [
+  #   {
+  #     name   = "auditlog-viewer"
+  #     plan   = "free"
+  #     amount = null
+  #   }
+  # ]
 }
