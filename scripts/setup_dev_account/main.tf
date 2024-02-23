@@ -1,101 +1,10 @@
-# ------------------------------------------------------------------------------------------------------
-# Setup subaccount domain (to ensure uniqueness in BTP global account)
-# ------------------------------------------------------------------------------------------------------
-locals {
-  project_subaccount_domain = "btpeab24"
+module "subaccount_setup" {
+  for_each = toset(var.regions)
 
-  role_mapping_admins = distinct(flatten([
-    for admin in var.admins : [
-      for role in var.role_collections_for_use_case : {
-        user_name = admin
-        role_name = role
-      }
-    ]
-  ]))
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Creation of subaccount
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount" "eab" {
-  name      = var.subaccount_name
-  subdomain = local.project_subaccount_domain
-  region    = lower(var.region)
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Entitle subaccount for usage of SAP Business Application Studio
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_entitlement" "bas" {
-  subaccount_id = btp_subaccount.eab.id
-  service_name  = "sapappstudio"
-  plan_name     = "standard-edition"
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Create app subscription to SAP Business Application Studio
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_subscription" "bas" {
-  subaccount_id = btp_subaccount.eab.id
-  app_name      =  "sapappstudio"
-  plan_name     = "standard-edition"
-  depends_on = [ btp_subaccount_entitlement.bas ]
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Create entitlements in the subaccount for additional services
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_subscription" "additional_entitlements" {
-  for_each = var.tfvarsEntitlements
-  subaccount_id = btp_subaccount.eab.id
-  app_name      = each.value.name
-  plan_name     = each.value.plan
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Create app subscription to SAP Business Application Studio
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_subscription" "bas" {
-  subaccount_id = btp_subaccount.eab.id
-  app_name      =  "sapappstudio"
-  plan_name     = "standard-edition"
-  depends_on = [ btp_subaccount_entitlement.bas ]
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Assign role collections to admins
-# ------------------------------------------------------------------------------------------------------
-# Assign users to Role Collection of SAP AI Launchpad
-resource "btp_subaccount_role_collection_assignment" "ai_launchpad_role_mapping" {
-  for_each             = { for entry in local.role_mapping_admins : "${entry.user_name}.${entry.role_name}" => entry }
-  subaccount_id        = btp_subaccount.eab.id
-  role_collection_name = each.value.role_name
-  user_name            = each.value.user_name
-  depends_on           = [btp_subaccount_subscription.bas]
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Create Cloud Foundry environment
-# ------------------------------------------------------------------------------------------------------
-module "cloudfoundry_environment" {
-  source = "../modules/environment/cloudfoundry/envinstance_cf"
-
-  subaccount_id           = btp_subaccount.eab.id
-  instance_name           = "cf-instance"
-  cf_org_name             = "eab-2024-04"
-  cf_org_managers         = []
-  cf_org_billing_managers = []
-  cf_org_auditors         = []
-}
-
-# ------------------------------------------------------------------------------------------------------
-# Create Cloud Foundry space and assign users
-# ------------------------------------------------------------------------------------------------------
-module "cloudfoundry_space" {
-  source              = "../modules/environment/cloudfoundry/space_cf"
-  cf_org_id           = module.cloudfoundry_environment.cf_org_id
-  name                = "dev"
-  cf_space_managers   = var.admins
-  cf_space_developers = var.admins
-  cf_space_auditors   = var.admins
+  source             = "../modules/subaccount_setup"
+  globalaccount      = var.globalaccount
+  subaccount_name    = "${var.subaccount_name}-${each.value}"
+  region             = each.value
+  admins             = var.admins
+  tfvarsEntitlements = var.tfvarsEntitlements
 }
