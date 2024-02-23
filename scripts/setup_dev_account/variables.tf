@@ -30,8 +30,8 @@ variable "tfvarsEntitlements" {
   description = "Map of entitlements to be created in the subaccount"
   default = [
     {
-      name   = "cloud-logging"
-      plan   = "standard"
+      name   = "auditlog-viewer"
+      plan   = "free"
       amount = null
     }
   ]
