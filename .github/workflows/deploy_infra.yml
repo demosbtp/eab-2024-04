@@ -58,6 +58,8 @@ jobs:
         export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
         terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply \
           -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
+          -var subaccount_name="EAB 2024 04" \
+          -var admins='["christian.lechner@sap.com"]' \ 
           -var-file='serviceentitlements.tfvars' \
           -auto-approve -no-color 
         echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
