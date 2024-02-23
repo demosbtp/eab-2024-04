@@ -36,10 +36,10 @@ resource "btp_subaccount" "eab" {
 # Create entitlements in the subaccount for additional services
 # ------------------------------------------------------------------------------------------------------
 resource "btp_subaccount_entitlement" "additional_entitlements" {
-  for_each        = { for entry in var.tfvarsEntitlements : "${entry.name}.${entry.plan}" => entry }
-  subaccount_id   = btp_subaccount.eab.id
-  service_name = each.value.name
-  plan_name       = each.value.plan
+  for_each      = { for entry in var.entitlements : "${entry.name}.${entry.plan}" => entry }
+  subaccount_id = btp_subaccount.eab.id
+  service_name  = each.value.name
+  plan_name     = each.value.plan
 }
 
 # ------------------------------------------------------------------------------------------------------
