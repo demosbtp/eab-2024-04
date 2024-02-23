@@ -21,7 +21,7 @@ variable "admins" {
 }
 
 
-variable "tfvarsEntitlements" {
+variable "entitlements" {
   type = list(object({
     name   = string
     plan   = string

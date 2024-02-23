@@ -6,5 +6,5 @@ module "subaccount_setup" {
   subaccount_name    = "${var.subaccount_name}-${each.value}"
   region             = each.value
   admins             = var.admins
-  tfvarsEntitlements = var.tfvarsEntitlements
+  tfvarsEntitlements = var.entitlements
 }
