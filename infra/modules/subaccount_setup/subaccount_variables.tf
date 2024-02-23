@@ -31,7 +31,7 @@ variable "role_collections_for_use_case" {
 
 }
 
-variable "tfvarsEntitlements" {
+variable "entitlements" {
   type        = list(object({
     name   = string
     plan   = string
