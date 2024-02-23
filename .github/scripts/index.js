@@ -27,8 +27,8 @@ async function createTfvarsEntitlements() {
         for (const resource of yamlData.resources) {
 
             tfvarsEntitlements += `  { \n`;
-            tfvarsEntitlements += `     name =  ${resource.parameters.service} \n`;
-            tfvarsEntitlements += `     plan =  ${resource.parameters['service-plan']} \n`;
+            tfvarsEntitlements += `     name =  "${resource.parameters.service}" \n`;
+            tfvarsEntitlements += `     plan =  "${resource.parameters['service-plan']}" \n`;
             tfvarsEntitlements += `     amount =  null \n`;
 
             if (counter === NumberOfEntries - 1) {
