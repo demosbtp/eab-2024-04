@@ -43,24 +43,24 @@ jobs:
         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
         npm run build:servicetfvars
        
-    #- name: Terraform Init for Subaccount
-    #  id: terraform_init_sa
-    #  shell: bash
-    #  run: |
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
+    - name: Terraform Init for Subaccount
+     id: terraform_init_sa
+     shell: bash
+     run: |
+       terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
 
-    #- name: Terraform Apply Subaccount Setup
-    #  id: terraform_apply_sa
-    #  shell: bash
-    #  # We do not store the state - in a real setup we would reference a remote backend to store the state
-    #  run: |
-    #    export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
-    #    export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply \
-    #     -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
-    #     -var-file='serviceentitlements.tfvars' \
-    #     -auto-approve -no-color 
-    #    echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
+    - name: Terraform Apply Subaccount Setup
+     id: terraform_apply_sa
+     shell: bash
+     # We do not store the state - in a real setup we would reference a remote backend to store the state
+     run: |
+       export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
+       export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
+       terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply \
+        -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
+        -var-file='serviceentitlements.tfvars' \
+        -auto-approve -no-color 
+       echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
     
     #- name: Terraform Setup for Cloud Foundry
     #  id: terraform_setup_cf
