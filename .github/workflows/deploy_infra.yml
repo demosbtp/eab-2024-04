@@ -56,7 +56,7 @@ jobs:
       run: |
         export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
         export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} plan -auto-approve -no-color \
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} plan -no-color \
           -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
           -var subaccount_name="EAB 2024 04" \
           -var admins='["christian.lechner@sap.com"]' \ 
