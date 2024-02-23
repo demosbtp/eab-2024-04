@@ -8,8 +8,10 @@ jobs:
     name: Project Setup
     runs-on: ubuntu-latest
     env: 
-      PATH_TO_TFSCRIPT: 'scripts/setup_dev_account'
+      PATH_TO_TFSCRIPT_SA: 'infra/setup_dev_account'
+      PATH_TO_TFSCRIPT_CF: 'infra/setup_dev_account'
       MTA_PATH: ''
+      CF_API_DETAILS: ''
     steps:
     - name: Check out Git repository
       id: checkout_repo
@@ -37,24 +39,41 @@ jobs:
       id: create_service_tfvars
       run: |
         cd .github/scripts
-        export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT }} 
+        export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT_SA }} 
         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
         npm run build:servicetfvars
        
-    #- name: Terraform Init
-    #  id: terraform_init
+    #- name: Terraform Init for Subaccount
+    #  id: terraform_init_sa
     #  shell: bash
     #  run: |
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT }} init -no-color
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
 
-    #- name: Terraform Apply 
-    #  id: terraform_apply
+    #- name: Terraform Apply Subaccount Setup
+    #  id: terraform_apply_sa
     #  shell: bash
     #  # We do not store the state - in a real setup we would reference a remote backend to store the state
     #  run: |
     #    export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
     #    export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT }} apply \
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} apply \
     #     -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
     #     -var-file='serviceentitlements.tfvars' \
-    #     -auto-approve -no-color          
+    #     -auto-approve -no-color 
+    #    echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
+    
+    #- name: Terraform Setup for Cloud Foundry
+    #  id: terraform_setup_cf
+    #  shell: bash
+    #  run: |
+    #    export CF_USER=${{ secrets.BTP_USERNAME }}
+    #    export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
+    #    export CF_API_DETAILS=${{ env.CF_API_DETAILS }}
+    #    SHELL SCRIPT - LOOP NEEEDED
+    # 
+    #    export CF_API_URL=$(echo $CF_API_DETAILS | jq -r '.api_url')  
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
+    #    terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} apply \
+    #     -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
+    #     -var-file='serviceentitlements.tfvars' \
+    #     -auto-approve -no-color    
