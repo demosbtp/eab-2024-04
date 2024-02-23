@@ -35,23 +35,22 @@ resource "btp_subaccount" "eab" {
 # ------------------------------------------------------------------------------------------------------
 # Create entitlements in the subaccount for additional services
 # ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_subscription" "additional_entitlements" {
-  #for_each = toset(var.tfvarsEntitlements)
-  for_each      = { for entry in var.tfvarsEntitlements : "${entry.name}.${entry.plan}" => entry }
-  subaccount_id = btp_subaccount.eab.id
-  app_name      = each.value.name
-  plan_name     = each.value.plan
+resource "btp_subaccount_entitlement" "additional_entitlements" {
+  for_each        = { for entry in var.tfvarsEntitlements : "${entry.name}.${entry.plan}" => entry }
+  subaccount_id   = btp_subaccount.eab.id
+  service_name = each.value.name
+  plan_name       = each.value.plan
 }
 
-# ------------------------------------------------------------------------------------------------------
-# Create Cloud Foundry entitlement in the subaccount
-# ------------------------------------------------------------------------------------------------------
-resource "btp_subaccount_entitlement" "cloudfoundry" {
-  subaccount_id = btp_subaccount.eab.id
-  service_name  = "APPLICATION_RUNTIME"
-  plan_name     = "MEMORY"
-  amount        = 1
-}
+# # ------------------------------------------------------------------------------------------------------
+# # Create Cloud Foundry entitlement in the subaccount
+# # ------------------------------------------------------------------------------------------------------
+# resource "btp_subaccount_entitlement" "cloudfoundry" {
+#   subaccount_id = btp_subaccount.eab.id
+#   service_name  = "APPLICATION_RUNTIME"
+#   plan_name     = "MEMORY"
+#   amount        = 1
+# }
 
 # ------------------------------------------------------------------------------------------------------
 # Create Cloud Foundry environment
@@ -59,8 +58,8 @@ resource "btp_subaccount_entitlement" "cloudfoundry" {
 module "cloudfoundry_environment" {
   source = "../environment/cloudfoundry/envinstance_cf"
 
-  subaccount_id           = btp_subaccount.eab.id
-  instance_name           = "cf-instance"
-  cf_org_name             = "eab-2024-04"
-  depends_on = [ btp_subaccount_entitlement.cloudfoundry ]  
+  subaccount_id = btp_subaccount.eab.id
+  instance_name = "cf-instance"
+  cf_org_name   = "eab-2024-04"
+
 }
