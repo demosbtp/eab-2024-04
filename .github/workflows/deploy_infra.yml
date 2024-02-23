@@ -60,7 +60,7 @@ jobs:
           -var globalaccount=${{ secrets.GLOBALACCOUNT }} \
           -var subaccount_name="EAB 2024 04" \
           -var admins='["christian.lechner@sap.com"]' \ 
-          -var-file='serviceentitlements.tfvars' \
+          -var-file='serviceentitlements.tfvars'
         echo "CF_API_DETAILS=$(terraform output -json -no-color cf_details)" >> "$GITHUB_ENV"
     
     #- name: Terraform Setup for Cloud Foundry
