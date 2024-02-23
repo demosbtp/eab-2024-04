@@ -26,9 +26,6 @@ variable "role_collections_for_use_case" {
   type        = list(string)
   description = "Defines the list of roles to be assigned to the users for this use case"
   default = [
-    "Business_Application_Studio_Administrator",
-    "Business_Application_Studio_Developer",
-    "Business_Application_Studio_Extension_Deployer",
     "Subaccount Administrator",
     "Subaccount Service Administrator"
   ]

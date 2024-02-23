@@ -53,3 +53,13 @@ module "cloudfoundry_environment" {
   cf_org_name   = "eab-2024-04"
 
 }
+
+
+# Assign users to Role Collection of SAP AI Launchpad
+resource "btp_subaccount_role_collection_assignment" "role_mapping" {
+  for_each             = { for entry in local.role_mapping_admins : "${entry.user_name}.${entry.role_name}" => entry }
+  subaccount_id        = btp_subaccount.gen_ai.id
+  role_collection_name = each.value.role_name
+  user_name            = each.value.user_name
+  depends_on           = [btp_subaccount_entitlement.additional_entitlements]
+}
