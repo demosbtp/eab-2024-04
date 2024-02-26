@@ -1,9 +1,15 @@
 name: Create a new project via Terraform
 
 on:
+  workflow_dispatch:
+    inputs:
+      REGION:
+        description: 'The region where the project should be created'
+        required: true
+        default: 'eu10'
   workflow_call:
     inputs:
-      region:
+      REGION:
         required: true
         type: string
     secrets:
@@ -69,7 +75,7 @@ jobs:
       run: |
         export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
         export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.region }}' -var subaccount_name='EAB 2024 04' -var admins='["christian.lechner@sap.com"]' -var-file='serviceentitlements.tfvars'
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.REGION }}' -var subaccount_name='EAB 2024 04' -var admins='["christian.lechner@sap.com"]' -var-file='serviceentitlements.tfvars'
         echo "CF_ORG_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_id)" >> "$GITHUB_ENV"
         echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
         echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
