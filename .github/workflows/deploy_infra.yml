@@ -74,14 +74,14 @@ jobs:
         echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
         echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
     
-#    - name: Terraform Apply Cloud Foundry Space Setup
-#      id: terraform_setup_cf
-#      shell: bash
-#      run: |
-#        export CF_USER=${{ secrets.BTP_USERNAME }}
-#        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
-#        export CF_API_URL=${{ env.CF_API_URL }}
-#        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev' -var admins='["christian.lechner@sap.com"]'
+    - name: Terraform Apply Cloud Foundry Space Setup
+      id: terraform_setup_cf
+      shell: bash
+      run: |
+        export CF_USER=${{ secrets.BTP_USERNAME }}
+        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
+        export CF_API_URL=${{ env.CF_API_URL }}
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev'
 
 #    - name: Install MBT Tool
 #      id: install_mbt
