@@ -64,15 +64,8 @@ jobs:
       run: |
         cd src/
         npm install
-        cds add hana --production
-        cds add xsuaa --production
-        cds build
-        mbt build -p cf -t=gen --mtar ${{ env.MTAR_FILE }}
-
-
-    - name: Show gen folder
-      run: |
-        ls -la ${{ env.MTAR_PATH }}
+        cds add xsuaa
+        mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
   
     - name: Create tfvars file for services
       id: create_service_tfvars
