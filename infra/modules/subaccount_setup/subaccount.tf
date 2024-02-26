@@ -36,10 +36,10 @@ resource "btp_subaccount" "eab" {
 # Create entitlements in the subaccount for additional services
 # ------------------------------------------------------------------------------------------------------
 resource "btp_subaccount_entitlement" "additional_entitlements" {
-  for_each        = { for entry in var.tfvarsEntitlements : "${entry.name}.${entry.plan}" => entry }
-  subaccount_id   = btp_subaccount.eab.id
-  service_name = each.value.name
-  plan_name       = each.value.plan
+  for_each      = { for entry in var.entitlements : "${entry.name}.${entry.plan}" => entry }
+  subaccount_id = btp_subaccount.eab.id
+  service_name  = each.value.name
+  plan_name     = each.value.plan
 }
 
 # ------------------------------------------------------------------------------------------------------
@@ -50,6 +50,15 @@ module "cloudfoundry_environment" {
 
   subaccount_id = btp_subaccount.eab.id
   instance_name = "cf-instance"
-  cf_org_name   = "eab-2024-04"
+  cf_org_name   = var.cf_org_name
+}
 
+
+# Assign users to Role Collection of SAP AI Launchpad
+resource "btp_subaccount_role_collection_assignment" "role_mapping" {
+  for_each             = { for entry in local.role_mapping_admins : "${entry.user_name}.${entry.role_name}" => entry }
+  subaccount_id        = btp_subaccount.eab.id
+  role_collection_name = each.value.role_name
+  user_name            = each.value.user_name
+  depends_on           = [btp_subaccount_entitlement.additional_entitlements]
 }

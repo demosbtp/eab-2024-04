@@ -3,16 +3,14 @@ variable "globalaccount" {
   description = "The globalaccount subdomain where the sub account shall be created."
 }
 
+variable "region" {
+  type        = string
+  description = "The region where the subaccount shall be created."
+}
+
 variable "subaccount_name" {
   type        = string
   description = "The subaccount name."
-}
-
-variable "regions" {
-  type        = list(string)
-  description = "The regions where the subaccount shall be created."
-  default     = ["eu10", "us10"]
-
 }
 
 variable "admins" {
@@ -20,19 +18,11 @@ variable "admins" {
   description = "Defines the colleagues who are added to each subaccount as emergency administrators."
 }
 
-
-variable "tfvarsEntitlements" {
+variable "entitlements" {
   type = list(object({
     name   = string
     plan   = string
     amount = number
   }))
   description = "Map of entitlements to be created in the subaccount"
-  default = [
-    {
-      name   = "auditlog-viewer"
-      plan   = "free"
-      amount = null
-    }
-  ]
 }
