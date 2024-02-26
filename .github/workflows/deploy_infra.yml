@@ -48,6 +48,22 @@ jobs:
         cd .github/scripts
         npm ci
 
+    - name: Install Tools
+      id: install_tools
+      run: |
+        npm i @sap/cds
+        npm install -g mbt
+
+    - name: Build CAP app
+      id: build_cap_app
+      run: |
+        cd src/
+        npm install
+        cds add hana --production
+        cds add xsuaa --production
+        cds build
+        mbt build -p cf -t=gen --mtar cap-app.mtar
+
     - name: Create tfvars file for services
       id: create_service_tfvars
       run: |
@@ -89,25 +105,21 @@ jobs:
         export CF_API_URL=${{ env.CF_API_URL }}
         terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev'
 
-    - name: Install Tools
-      id: install_tools
-      run: |
-        npm i @sap/cds
-        npm install -g mbt
-    
 #    - name: Build MTAR 
 #      id: build_mtar
 #      run: |
 #        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/' --mtar cap-demo.mtar
 #    
-#    - name: Deploy MTAR
-#      id: deploy_mtar
-#      uses: NickChecan/sap-btp-action@v3
-#      with:
-#        cf_api: ${{ env.CF_API_URL }}
-#        cf_username: ${{ secrets.BTP_USERNAME }}
-#        cf_password: ${{ secrets.BTP_PASSWORD }}
-#        cf_org: ${{ env.CF_ORG_NAME }}
-#        cf_space: dev
-#        command: deploy ./src/cap-demo/cap-demo.mtar -f
+    - name: Deploy MTAR
+      id: deploy_mtar
+      uses: NickChecan/sap-btp-action@v3
+      with:
+        cf_api: ${{ env.CF_API_URL }}
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: ${{ env.CF_ORG_NAME }}
+        cf_space: dev
+        command: deploy ./src/gen/cap-app.mtar -f
+   
+    
          
