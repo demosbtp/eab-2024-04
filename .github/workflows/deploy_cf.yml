@@ -21,7 +21,7 @@ jobs:
         cf_api: https://api.cf.us10.hana.ondemand.com
         cf_username: ${{ secrets.BTP_USERNAME }}
         cf_password: ${{ secrets.BTP_PASSWORD }}
-        cf_org: btpeab24
+        cf_org: eab-2024-04
         cf_space: dev
         command: |
           set-org-role rui.nogueira@sap.com OrgManager
