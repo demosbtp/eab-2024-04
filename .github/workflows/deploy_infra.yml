@@ -148,7 +148,8 @@ jobs:
         cf_org: ${{ env.CF_ORG_NAME }}
         cf_space: ${{ env.CF_SPACE_NAME }}
         command: |
-          cf8 deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
+          cf8 install-plugin -f multiapps \
+          && cf8 deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
     
 
     # - name: Deploy MTAR
