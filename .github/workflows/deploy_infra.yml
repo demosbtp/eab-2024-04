@@ -29,32 +29,6 @@ jobs:
       CF_API_URL: ''
     steps:
 
-    - name: Deploy MTAR1
-      id: deploy_mtar1
-      uses: NickChecan/sap-btp-action@v3
-      with:
-        cf_api: ${{ env.CF_API_URL }}
-        cf_username: ${{ secrets.BTP_USERNAME }}
-        cf_password: ${{ secrets.BTP_PASSWORD }}
-        cf_org: ${{ env.CF_ORG_NAME }}
-        cf_space: dev
-        command: |
-          install-plugin -f multiapps 
-
-    - name: Deploy MTAR2
-      id: deploy_mtar2
-      uses: NickChecan/sap-btp-action@v3
-      with:
-        cf_api: ${{ env.CF_API_URL }}
-        cf_username: ${{ secrets.BTP_USERNAME }}
-        cf_password: ${{ secrets.BTP_PASSWORD }}
-        cf_org: ${{ env.CF_ORG_NAME }}
-        cf_space: dev
-        command: |
-          install-plugin -f https://github.com/cloudfoundry/multiapps-cli-plugin/releases/download/v3.0.3/multiapps-plugin.linux64
-    
-
-
     - name: Check out Git repository
       id: checkout_repo
       uses: actions/checkout@v4
@@ -151,4 +125,5 @@ jobs:
         cf_org: ${{ env.CF_ORG_NAME }}
         cf_space: dev
         command: |
+          install-plugin -f multiapps 
           deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
