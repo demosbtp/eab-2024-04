@@ -17,7 +17,7 @@ data "cloudfoundry_service" "hana_cloud" {
 
 resource "cloudfoundry_service_instance" "hana_cloud_hana" {
   name         = "hana-cloud"
-  space        = module.cloudfoundry_space.space.id
+  space        = module.cloudfoundry_space.id
   service_plan = data.cloudfoundry_service.hana_cloud.service_plans["hana"]
   json_params  = jsonencode({"data": {"memory": 30,"edition": "cloud","systempassword": "Abcd1234", "whitelistIPs": ["0.0.0.0/0"]}})
 }
