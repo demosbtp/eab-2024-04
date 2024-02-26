@@ -6,19 +6,13 @@ on:
       REGION:
         description: 'The region where the project should be created'
         required: true
-        default: 'eu10'
+        default: 'us10'
   workflow_call:
     inputs:
       REGION:
         required: true
         type: string
-    secrets:
-      BTP_USERNAME:
-        required: true
-      BTP_PASSWORD:
-          required: true
-      GLOBALACCOUNT:
-          required: true      
+        default: 'us10'
 
 jobs:
   execute_infra_setup:

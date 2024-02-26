@@ -11,8 +11,5 @@ jobs:
     uses: 'demosbtp/eab-2024-04/.github/workflows/deploy_infra.yml@main'
     with:
       REGION: ${{ matrix.region }}
-    secrets:
-      BTP_USERNAME: ${{ secrets.BTP_USERNAME }}
-      BTP_PASSWORD: ${{ secrets.BTP_PASSWORD }}
-      GLOBALACCOUNT: ${{ secrets.GLOBALACCOUNT }}
+    secrets: inherit
     
