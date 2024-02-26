@@ -118,7 +118,7 @@ jobs:
 
     - name: Assign CF users
       id: assign_cf_users
-      uses: NickChecan/sap-btp-action@v3
+      uses: ./.github/action/sap-btp-cf
       with:
         cf_api: ${{ env.CF_API_URL }}
         cf_username: ${{ secrets.BTP_USERNAME }}
@@ -134,15 +134,34 @@ jobs:
           set-org-role christian.lechner@sap.com SpaceDeveloper
 
 
-    - name: Deploy MTAR
-      id: deploy_mtar
-      uses: NickChecan/sap-btp-action@v3
-      with:
-        cf_api: ${{ env.CF_API_URL }}
-        cf_username: ${{ secrets.BTP_USERNAME }}
-        cf_password: ${{ secrets.BTP_PASSWORD }}
-        cf_org: ${{ env.CF_ORG_NAME }}
-        cf_space: dev
-        command: |
-          install-plugin -f multiapps 
-          deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
+
+    # - name: Assign CF users
+    #   id: assign_cf_users
+    #   uses: NickChecan/sap-btp-action@v3
+    #   with:
+    #     cf_api: ${{ env.CF_API_URL }}
+    #     cf_username: ${{ secrets.BTP_USERNAME }}
+    #     cf_password: ${{ secrets.BTP_PASSWORD }}
+    #     cf_org: ${{ env.CF_ORG_NAME }}
+    #     cf_space: dev
+    #     command: |
+    #       set-org-role rui.nogueira@sap.com OrgManager
+    #       set-org-role rui.nogueira@sap.com SpaceManager
+    #       set-org-role rui.nogueira@sap.com SpaceDeveloper
+    #       set-org-role christian.lechner@sap.com OrgManager
+    #       set-org-role christian.lechner@sap.com SpaceManager
+    #       set-org-role christian.lechner@sap.com SpaceDeveloper
+
+
+    # - name: Deploy MTAR
+    #   id: deploy_mtar
+    #   uses: NickChecan/sap-btp-action@v3
+    #   with:
+    #     cf_api: ${{ env.CF_API_URL }}
+    #     cf_username: ${{ secrets.BTP_USERNAME }}
+    #     cf_password: ${{ secrets.BTP_PASSWORD }}
+    #     cf_org: ${{ env.CF_ORG_NAME }}
+    #     cf_space: dev
+    #     command: |
+    #       install-plugin -f multiapps 
+    #       deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
