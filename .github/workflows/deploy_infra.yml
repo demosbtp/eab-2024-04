@@ -90,7 +90,7 @@ jobs:
     - name: Build MTAR 
       id: build_mtar
       run: |
-        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/'  --mtar cap-demo.mtar
+        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/' --mtar cap-demo.mtar
     
     - name: Deploy MTAR
       id: deploy_mtar
