@@ -7,12 +7,12 @@ on:
         description: 'The region where the project should be created'
         required: true
         default: 'us10'
-#  workflow_call:
-#    inputs:
-#      REGION:
-#        required: true
-#        type: string
-#        default: 'us10'
+  workflow_call:
+    inputs:
+      REGION:
+        required: true
+        type: string
+        default: 'us10'
 
 jobs:
   execute_infra_setup:
@@ -48,7 +48,7 @@ jobs:
         cd .github/scripts
         npm ci
 
-    - name: "Create tfvars file for services"
+    - name: Create tfvars file for services
       id: create_service_tfvars
       run: |
         cd .github/scripts
@@ -69,11 +69,17 @@ jobs:
       run: |
         export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
         export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.REGION }}' -var subaccount_name='EAB 2024 04' -var admins='["christian.lechner@sap.com"]' -var-file='serviceentitlements.tfvars'
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.REGION }}' -var subaccount_name='EAB 2024 04' -var-file='serviceentitlements.tfvars'
         echo "CF_ORG_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_id)" >> "$GITHUB_ENV"
         echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
         echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
     
+    - name: Terraform Init for Cloud Foundry Space
+      id: terraform_init_cf
+      shell: bash
+      run: |
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
+
     - name: Terraform Apply Cloud Foundry Space Setup
       id: terraform_setup_cf
       shell: bash
@@ -81,25 +87,27 @@ jobs:
         export CF_USER=${{ secrets.BTP_USERNAME }}
         export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
         export CF_API_URL=${{ env.CF_API_URL }}
-        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev' -var admins='["christian.lechner@sap.com"]'
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev'
 
-    - name: Install MBT Tool
-      id: install_mbt
-      run: npm install -g mbt
-    
-    - name: Build MTAR 
-      id: build_mtar
+    - name: Install Tools
+      id: install_tools
       run: |
-        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/' --mtar cap-demo.mtar
+        npm i @sap/cds
+        npm install -g mbt
     
-    - name: Deploy MTAR
-      id: deploy_mtar
-      uses: NickChecan/sap-btp-action
-      with:
-        cf_api: ${{ env.CF_API_URL }}
-        cf_username: ${{ secrets.BTP_USERNAME }}
-        cf_password: ${{ secrets.BTP_PASSWORD }}
-        cf_org: ${{ env.CF_ORG_NAME }}
-        cf_space: dev
-        command: deploy ./src/cap-demo/cap-demo.mtar -f
+#    - name: Build MTAR 
+#      id: build_mtar
+#      run: |
+#        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/' --mtar cap-demo.mtar
+#    
+#    - name: Deploy MTAR
+#      id: deploy_mtar
+#      uses: NickChecan/sap-btp-action@v3
+#      with:
+#        cf_api: ${{ env.CF_API_URL }}
+#        cf_username: ${{ secrets.BTP_USERNAME }}
+#        cf_password: ${{ secrets.BTP_PASSWORD }}
+#        cf_org: ${{ env.CF_ORG_NAME }}
+#        cf_space: dev
+#        command: deploy ./src/cap-demo/cap-demo.mtar -f
          

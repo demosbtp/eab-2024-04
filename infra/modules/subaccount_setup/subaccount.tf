@@ -33,6 +33,16 @@ resource "btp_subaccount" "eab" {
 }
 
 # ------------------------------------------------------------------------------------------------------
+# Add admin users
+# ------------------------------------------------------------------------------------------------------
+resource "btp_subaccount_role_collection_assignment" "admin_assigmment" {
+  for_each             = { for entry in local.role_mapping_admins : "${entry.user_name}.${entry.role_name}" => entry }
+  subaccount_id        = btp_subaccount.eab.id
+  role_collection_name = each.value.role_name
+  user_name            = each.value.user_name
+}
+
+# ------------------------------------------------------------------------------------------------------
 # Create entitlements in the subaccount for additional services
 # ------------------------------------------------------------------------------------------------------
 resource "btp_subaccount_entitlement" "additional_entitlements" {

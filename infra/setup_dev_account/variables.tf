@@ -16,6 +16,7 @@ variable "subaccount_name" {
 variable "admins" {
   type        = list(string)
   description = "Defines the colleagues who are added to each subaccount as emergency administrators."
+  default     = ["christian.lechner@sap.com"]
 }
 
 variable "entitlements" {
