@@ -1,0 +1,6 @@
+ID;brand;model;price;description;quantity;category_ID
+e22ed390-2008-4960-9268-f69bd8ccc097;Fender;Stratocaster;999.99;Iconic electric guitar with versatile sound;10;b148c914-99dd-47f1-a3a8-d48effe01cc8
+d1975728-ebef-43ef-b287-9f6b16f3ef4e;Gibson;Les Paul;1499.99;Legendary guitar with powerful tone;5;b148c914-99dd-47f1-a3a8-d48effe01cc8
+ec1c7639-8202-4cc3-918c-ac183ed3ba17;Taylor;814ce;2499.99;High-quality acoustic guitar with rich sound;8;1129d4c5-ab71-43bb-af17-5cc8debd5dd1
+ec6dbfa0-80c2-423b-a95c-583a4d413387;Ibanez;SR500;699.99;Versatile bass guitar for any playing style;3;55c0331a-8238-4f71-ad87-fab81b1f13b8
+e14e0caf-482e-4dc2-9955-a0aeba042f83;Yamaha;C40;199.99;Affordable classical guitar for beginners;12;971925d9-c314-4b10-a7bb-984b38f6f71a

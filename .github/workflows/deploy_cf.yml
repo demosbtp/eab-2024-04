@@ -1,0 +1,32 @@
+name: Run CF commands
+
+on:
+  workflow_dispatch:
+
+
+jobs:
+  execute_infra_setup:
+    name: Project Setup
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Check out Git repository
+      id: checkout_repo
+      uses: actions/checkout@v4
+      
+    - name: Assign CF users
+      id: assign_cf_users
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: https://api.cf.us10.hana.ondemand.com
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: btpeab24
+        cf_space: dev
+        command: |
+          set-org-role rui.nogueira@sap.com OrgManager
+          set-org-role rui.nogueira@sap.com SpaceManager
+          set-org-role rui.nogueira@sap.com SpaceDeveloper
+          set-org-role christian.lechner@sap.com OrgManager
+          set-org-role christian.lechner@sap.com SpaceManager
+          set-org-role christian.lechner@sap.com SpaceDeveloper
