@@ -65,6 +65,7 @@ jobs:
         cd src/
         npm install
         cds add xsuaa
+        cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
   
     - name: Create tfvars file for services
