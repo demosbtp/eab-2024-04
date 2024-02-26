@@ -151,5 +151,4 @@ jobs:
         cf_org: ${{ env.CF_ORG_NAME }}
         cf_space: dev
         command: |
-          install-plugin -f https://github.com/cloudfoundry/multiapps-cli-plugin/releases/download/v3.0.3/multiapps-plugin.linux64
           deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
