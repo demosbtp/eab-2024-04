@@ -1,4 +1,4 @@
-# CAP cap-demo
+# CAP eab_test2
 _out
 *.db
 *.sqlite
@@ -32,3 +32,8 @@ mta_archives/
 
 # @cap-js/cds-typer
 @cds-models
+
+# LCAP
+build/ui-deployer/
+build/dist/
+env/
