@@ -25,8 +25,8 @@ jobs:
         cf_space: dev
         command: |
           set-org-role rui.nogueira@sap.com eab-2024-04 OrgManager \
-          && cf8 set-org-role rui.nogueira@sap.com eab-2024-04 SpaceManager \
-          && cf8 set-org-role rui.nogueira@sap.com eab-2024-04 SpaceDeveloper \
           && cf8 set-org-role christian.lechner@sap.com eab-2024-04 OrgManager \
-          && cf8 set-org-role christian.lechner@sap.com eab-2024-04 SpaceManager \
-          && cf8 set-org-role christian.lechner@sap.com eab-2024-04 SpaceDeveloper
+          && cf8 set-space-role rui.nogueira@sap.com eab-2024-04 dev SpaceManager \
+          && cf8 set-space-role rui.nogueira@sap.com eab-2024-04 dev SpaceDeveloper \
+          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceManager \
+          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceDeveloper
