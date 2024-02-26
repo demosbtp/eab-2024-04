@@ -28,5 +28,5 @@ jobs:
           && cf8 set-org-role christian.lechner@sap.com eab-2024-04 OrgManager --origin sap.default\
           && cf8 set-space-role rui.nogueira@sap.com eab-2024-04 dev SpaceManager \
           && cf8 set-space-role rui.nogueira@sap.com eab-2024-04 dev SpaceDeveloper \
-          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceManager \
-          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceDeveloper
+          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceManager  --origin sap.default\
+          && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceDeveloper  --origin sap.default
