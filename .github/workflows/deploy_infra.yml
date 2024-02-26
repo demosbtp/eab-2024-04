@@ -48,15 +48,15 @@ jobs:
         cd .github/scripts
         npm ci
 
-    - name: Install Tools
-      id: install_tools
-      run: |
-        npm i @sap/cds
-        npm install -g mbt
+#    - name: Install Tools
+#      id: install_tools
+#      run: |
 
     - name: Build CAP app
       id: build_cap_app
       run: |
+        npm i @sap/cds
+        npm install -g mbt
         cd src/
         npm install
         cds add hana --production
