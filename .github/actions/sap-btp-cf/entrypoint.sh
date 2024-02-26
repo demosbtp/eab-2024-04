@@ -1,7 +1,7 @@
 #!/bin/sh -l
 cf api "$INPUT_CF_API"
 
-if [ -n "$INPUT_CF_ORIGIN" ] then
+if [ -n "$INPUT_CF_ORIGIN" ]; then
   cf auth "$INPUT_CF_USERNAME" "$INPUT_CF_PASSWORD" --origin "$INPUT_CF_ORIGIN"
 else
   cf auth "$INPUT_CF_USERNAME" "$INPUT_CF_PASSWORD"
