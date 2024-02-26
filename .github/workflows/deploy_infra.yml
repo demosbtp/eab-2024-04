@@ -72,9 +72,6 @@ jobs:
         export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT_SA }} 
         export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
         npm run build:servicetfvars
-        cd ${{ env.PATH_TO_TFSCRIPT_SA }}
-        pwd
-        ls -la
   
     - name: Terraform Init for Subaccount
       id: terraform_init_sa
