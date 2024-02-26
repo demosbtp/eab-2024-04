@@ -74,6 +74,12 @@ jobs:
         echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
         echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
     
+    - name: Terraform Init for Cloud Foundry Space
+      id: terraform_init_cf
+      shell: bash
+      run: |
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
+
     - name: Terraform Apply Cloud Foundry Space Setup
       id: terraform_setup_cf
       shell: bash
