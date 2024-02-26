@@ -7,12 +7,12 @@ on:
         description: 'The region where the project should be created'
         required: true
         default: 'us10'
-  workflow_call:
-    inputs:
-      REGION:
-        required: true
-        type: string
-        default: 'us10'
+#  workflow_call:
+#    inputs:
+#      REGION:
+#        required: true
+#        type: string
+#        default: 'us10'
 
 jobs:
   execute_infra_setup:
