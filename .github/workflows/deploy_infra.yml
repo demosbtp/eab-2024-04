@@ -116,9 +116,14 @@ jobs:
 #    
 
 
+    - name: Checkout action
+      id: checkout_action
+      uses: actions/checkout@v4
+
+
     - name: Assign CF users
       id: assign_cf_users
-      uses: ./.github/action/sap-btp-cf
+      uses: ./.github/actions/sap-btp-cf
       with:
         cf_api: ${{ env.CF_API_URL }}
         cf_username: ${{ secrets.BTP_USERNAME }}
