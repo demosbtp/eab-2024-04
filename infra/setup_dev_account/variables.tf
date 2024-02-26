@@ -3,22 +3,20 @@ variable "globalaccount" {
   description = "The globalaccount subdomain where the sub account shall be created."
 }
 
+variable "region" {
+  type        = string
+  description = "The region where the subaccount shall be created."
+}
+
 variable "subaccount_name" {
   type        = string
   description = "The subaccount name."
-}
-
-variable "regions" {
-  type        = list(string)
-  description = "The regions where the subaccount shall be created."
-  default     = ["us10", "eu10"]
 }
 
 variable "admins" {
   type        = list(string)
   description = "Defines the colleagues who are added to each subaccount as emergency administrators."
 }
-
 
 variable "entitlements" {
   type = list(object({
@@ -27,5 +25,4 @@ variable "entitlements" {
     amount = number
   }))
   description = "Map of entitlements to be created in the subaccount"
-
 }

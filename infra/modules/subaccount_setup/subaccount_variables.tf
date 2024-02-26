@@ -12,7 +12,6 @@ variable "subaccount_name" {
 variable "region" {
   type        = string
   description = "The region where the sub account shall be created in."
-  default     = "us10"
 }
 
 variable "admins" {
@@ -28,11 +27,10 @@ variable "role_collections_for_use_case" {
     "Subaccount Administrator",
     "Subaccount Service Administrator"
   ]
-
 }
 
 variable "entitlements" {
-  type        = list(object({
+  type = list(object({
     name   = string
     plan   = string
     amount = number

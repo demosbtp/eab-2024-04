@@ -1,9 +1,9 @@
-output "id" {
+output "space_id" {
   value       = cloudfoundry_space.space.id
-  description = "The GUID of the space."
+  description = "The GUID of the CF space."
 }
 
-output "name" {
+output "space_name" {
   value       = cloudfoundry_space.space.name
-  description = "The name of the space."
+  description = "The name of the CF space."
 }
