@@ -94,6 +94,21 @@ jobs:
         echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
         echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
     
+    - name: Terraform Init for Cloud Foundry Space
+      id: terraform_init_cf
+      shell: bash
+      run: |
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
+
+    - name: Terraform Apply Cloud Foundry Space Setup
+      id: terraform_setup_cf
+      shell: bash
+      run: |
+        export CF_USER=${{ secrets.BTP_USERNAME }}
+        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
+        export CF_API_URL=${{ env.CF_API_URL }}
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
+
     - name: Assign CF users
       id: assign_cf_users
       uses: ./.github/actions/sap-btp-cf
@@ -111,21 +126,7 @@ jobs:
           && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.default\
           && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.default
 
-    - name: Terraform Init for Cloud Foundry Space
-      id: terraform_init_cf
-      shell: bash
-      run: |
-        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
 
-    - name: Terraform Apply Cloud Foundry Space Setup
-      id: terraform_setup_cf
-      shell: bash
-      run: |
-        export CF_USER=${{ secrets.BTP_USERNAME }}
-        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
-        export CF_API_URL=${{ env.CF_API_URL }}
-        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
-    
     - name: Deploy MTAR
       id: deploy_mtar
       uses: ./.github/actions/sap-btp-cf
