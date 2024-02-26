@@ -39,7 +39,7 @@ jobs:
         cf_org: ${{ env.CF_ORG_NAME }}
         cf_space: dev
         command: |
-          install-plugin multiapps
+          install-plugin -f multiapps 
 
     - name: Deploy MTAR2
       id: deploy_mtar2
