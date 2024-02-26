@@ -30,3 +30,15 @@ jobs:
           && cf8 set-space-role rui.nogueira@sap.com eab-2024-04 dev SpaceDeveloper \
           && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceManager  --origin sap.default\
           && cf8 set-space-role christian.lechner@sap.com eab-2024-04 dev SpaceDeveloper  --origin sap.default
+
+    - name: Deploy MTAR
+      id: deploy_mtar
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: https://api.cf.us10.hana.ondemand.com
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: eab-2024-04
+        cf_space: dev
+        command: |
+          deploy ./src/gen/cap-app.mtar -f
