@@ -89,10 +89,10 @@ jobs:
         export CF_API_URL=${{ env.CF_API_URL }}
         terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='dev'
 
-#    - name: Install MBT Tool
-#      id: install_mbt
-#      run: npm install -g mbt
-#    
+    - name: Install MBT Tool
+      id: install_mbt
+      run: npm install -g mbt
+    
 #    - name: Build MTAR 
 #      id: build_mtar
 #      run: |
