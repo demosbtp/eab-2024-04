@@ -1,6 +1,12 @@
 name: Create a new project via Terraform
 
 on:
+  workflow_dispatch:
+    inputs:
+      REGION:
+        description: 'The region where the project should be created'
+        required: true
+        default: 'eu10'
   workflow_call:
     inputs:
       REGION:
