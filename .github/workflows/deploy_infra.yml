@@ -69,6 +69,11 @@ jobs:
         cds build
         mbt build -p cf -t=gen --mtar ${{ env.MTAR_FILE }}
 
+
+    - name: Show gen folder
+      run: |
+        ls -la ${{ env.MTAR_PATH }}
+  
     - name: Create tfvars file for services
       id: create_service_tfvars
       run: |
@@ -110,16 +115,6 @@ jobs:
         export CF_API_URL=${{ env.CF_API_URL }}
         terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
 
-#    - name: Build MTAR 
-#      id: build_mtar
-#      run: |
-#        mbt build -p cf -s='./src/cap-demo/ -t='./src/cap-demo/' --mtar cap-demo.mtar
-#    
-
-    - name: Checkout action
-      id: checkout_action
-      uses: actions/checkout@v4
-
     - name: Assign CF users
       id: assign_cf_users
       uses: ./.github/actions/sap-btp-cf
@@ -150,17 +145,3 @@ jobs:
         command: |
           cf8 install-plugin -f multiapps \
           && cf8 deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
-    
-
-    # - name: Deploy MTAR
-    #   id: deploy_mtar
-    #   uses: NickChecan/sap-btp-action@v3
-    #   with:
-    #     cf_api: ${{ env.CF_API_URL }}
-    #     cf_username: ${{ secrets.BTP_USERNAME }}
-    #     cf_password: ${{ secrets.BTP_PASSWORD }}
-    #     cf_org: ${{ env.CF_ORG_NAME }}
-    #     cf_space: ${{ env.CF_SPACE_NAME }}
-    #     command: |
-    #       install-plugin -f multiapps 
-    #       deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
