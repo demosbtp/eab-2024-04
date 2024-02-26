@@ -21,6 +21,8 @@ jobs:
     env: 
       PATH_TO_TFSCRIPT_SA: 'infra/setup_dev_account'
       PATH_TO_TFSCRIPT_CF: 'infra/setup_cf_spaces'
+      MTAR_PATH: './src/gen'
+      MTAR_FILE: 'cap-app.mtar'
       MTA_PATH: ''
       CF_ORG_ID: ''
       CF_ORG_NAME: ''
@@ -54,7 +56,6 @@ jobs:
         npm install --global @sap/cds-dk
         cds --version
         npm install -g mbt
-        cf install-plugin -f https://github.com/cloudfoundry/multiapps-cli-plugin/releases/download/v3.0.3/multiapps-plugin.linux64
 
     - name: Build CAP app
       id: build_cap_app
@@ -64,7 +65,7 @@ jobs:
         cds add hana --production
         cds add xsuaa --production
         cds build
-        mbt build -p cf -t=gen --mtar cap-app.mtar
+        mbt build -p cf -t=gen --mtar ${{ env.MTAR_FILE }}
 
     - name: Create tfvars file for services
       id: create_service_tfvars
@@ -121,4 +122,6 @@ jobs:
         cf_password: ${{ secrets.BTP_PASSWORD }}
         cf_org: ${{ env.CF_ORG_NAME }}
         cf_space: dev
-        command: deploy ./src/gen/cap-app.mtar -f
+        command: |
+          cf install-plugin -f https://github.com/cloudfoundry/multiapps-cli-plugin/releases/download/v3.0.3/multiapps-plugin.linux64
+          deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
