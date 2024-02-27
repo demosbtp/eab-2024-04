@@ -3,7 +3,18 @@
 # --------------------------------------------------------------------------------------------
 # The script will remove the old code from the eab-2024-04 repo and copy the new code 
 # from the project $1 (the first argument) to the eab-2024-04 repo
-
+echo "# --------------------------------------------------------"
+echo "# Delete existing repo"
+echo "# --------------------------------------------------------"
+rm -rf eab-2024-04
+echo "- deleted existing repo"
+echo ""
+echo "# --------------------------------------------------------"
+echo "# Clone repo https://github.com/demosbtp/eab-2024-04.git"
+echo "# --------------------------------------------------------"
+git clone https://github.com/demosbtp/eab-2024-04.git
+echo "- cloned repo"
+echo ""
 echo "# --------------------------------------------------------"
 echo "# Cleaning up eab-2024-04 repo"
 echo "# --------------------------------------------------------"
@@ -16,9 +27,9 @@ echo ""
 echo "# --------------------------------------------------------"
 echo "# Copying code from project $1 to eab-2024-04 repo"
 echo "# --------------------------------------------------------"
-cp -rf $1/app        eab-2024-04/src/app
-cp -rf $1/db         eab-2024-04/src/db
-cp -rf $1/srv        eab-2024-04/src/srv
+cp -rf $1/app        eab-2024-04/src
+cp -rf $1/db         eab-2024-04/src
+cp -rf $1/srv        eab-2024-04/src
 cp -f  $1/*.json     eab-2024-04/src
 cp -f  $1/.eslintrc  eab-2024-04/src
 cp -f  $1/.gitignore eab-2024-04/src
