@@ -42,6 +42,17 @@ resource "btp_subaccount_role_collection_assignment" "admin_assigmment" {
   user_name            = each.value.user_name
 }
 
+
+# ------------------------------------------------------------------------------------------------------
+# Create entitlements in the subaccount for SAP HANA Cloud
+# ------------------------------------------------------------------------------------------------------
+resource "btp_subaccount_entitlement" "hana_cloud" {
+  subaccount_id = btp_subaccount.eab.id
+  service_name  = "hana-cloud"
+  plan_name     = "hana"
+}
+
+
 # ------------------------------------------------------------------------------------------------------
 # Create entitlements in the subaccount for additional services
 # ------------------------------------------------------------------------------------------------------

@@ -6,8 +6,9 @@ on:
 jobs:
   RegionDeploymentMatrix:
     strategy:
+      fail-fast: false
       matrix:
-        region: ['us10']
+        region: ['us10', 'eu10', 'ap10']
     uses: './.github/workflows/deploy_infra.yml'
     with:
       REGION: ${{ matrix.region }}
