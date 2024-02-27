@@ -23,6 +23,6 @@ resource "time_sleep" "wait_for_cfmarketplace" {
 # ------------------------------------------------------------------------------------------------------
 module "cloudfoundry_hana_cloud" {
   source      = "../modules/services/hanacloud_cf"
-  cf_space_id = module.cloudfoundry_space.cf_space_id
+  cf_space_id = module.cloudfoundry_space.space_id
   depends_on  = [time_sleep.wait_for_cfmarketplace]
 }

@@ -1,3 +1,12 @@
+terraform {
+  required_providers {
+    cloudfoundry = {
+      source  = "cloudfoundry-community/cloudfoundry"
+      version = "~>0.53.0"
+    }
+  }
+}
+
 data "cloudfoundry_service" "hana_cloud" {
   name = "hana-cloud"
 }
