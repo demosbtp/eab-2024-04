@@ -23,3 +23,12 @@ cp -f  $1/*.json     eab-2024-04/src
 cp -f  $1/.eslintrc  eab-2024-04/src
 cp -f  $1/.gitignore eab-2024-04/src
 echo "- copied code from project $1 to eab-2024-04 repo"
+echo ""
+echo "# --------------------------------------------------------"
+echo "# Checkout code and create a PR for the changes"
+echo "# --------------------------------------------------------"
+git checkout -b eab-demo2024-04
+git add .
+git commit -m "feat: add CAP app by Joule" 
+git push -u origin eab-demo2024-04
+gh pr create -B main -f -l enhancement
