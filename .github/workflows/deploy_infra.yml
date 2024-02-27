@@ -129,22 +129,6 @@ jobs:
           && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.ids\
           && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.ids
 
-
-#    - name: Terraform Init for SAP HANA Cloud on CF
-#      id: terraform_init_cf_hana
-#      shell: bash
-#      run: |
-#        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF_HANA }} init -no-color
-
-    - name: Terraform Apply Cloud Foundry Space Setup
-      id: terraform_setup_cf_hana
-      shell: bash
-      run: |
-        export CF_USER=${{ secrets.BTP_USERNAME }}
-        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
-        export CF_API_URL=${{ env.CF_API_URL }}
-        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF_HANA }}' apply -auto-approve -no-color -var cf_space_id='${{ env.CF_SPACE_ID }}'
-    
     - name: Deploy MTAR
       id: deploy_mtar
       uses: ./.github/actions/sap-btp-cf
