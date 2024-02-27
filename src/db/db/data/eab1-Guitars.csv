@@ -1,6 +1,0 @@
-ID;brand;model;price;color;year;category_ID;owner_ID
-b1d5b30b-31dc-4562-8684-d2d5ace28946;Fender;Stratocaster;1500.00;Sunburst;2018;694e98a2-5869-494b-bb32-a6eb22627a0e;acac1d43-fe36-483f-adf7-232a8c665605
-acac1d43-fe36-483f-adf7-232a8c665605;Gibson;Les Paul;2000.00;Black;2020;694e98a2-5869-494b-bb32-a6eb22627a0e;96cfb5f5-83f7-48c9-affe-607a0eb542ed
-96cfb5f5-83f7-48c9-affe-607a0eb542ed;Ibanez;RG550;1200.00;Blue;2019;fdef98ca-4f68-4987-9596-e9aaa9af0c83;5fbd9c69-e9eb-4739-a359-78f8dcbbc1b3
-5fbd9c69-e9eb-4739-a359-78f8dcbbc1b3;Martin;D-28;3000.00;Natural;2017;fdef98ca-4f68-4987-9596-e9aaa9af0c83;ee1cbb45-0512-4ed4-8631-15f6fd03e0a7
-ee1cbb45-0512-4ed4-8631-15f6fd03e0a7;Yamaha;TRBX304;800.00;Red;2021;3b81e368-091b-4896-901e-a379b3bab355;140e125b-0f6e-43cb-9336-a0a1d651765c
