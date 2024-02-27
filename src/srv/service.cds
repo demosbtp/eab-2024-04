@@ -1,12 +1,12 @@
-using { eabtest2 as my } from '../db/schema.cds';
+using { eab1 as my } from '../db/schema.cds';
 
-@path: '/service/eabtest2'
+@path: '/service/eab'
 @requires: 'authenticated-user'
-service eabtest2Service {
+service eabService {
   @odata.draft.enabled
   entity Guitars as projection on my.Guitars;
   @odata.draft.enabled
   entity Categories as projection on my.Categories;
   @odata.draft.enabled
-  entity Orders as projection on my.Orders;
+  entity Owners as projection on my.Owners;
 }

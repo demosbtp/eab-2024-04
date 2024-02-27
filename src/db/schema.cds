@@ -1,14 +1,14 @@
-namespace eabtest2;
+namespace eab1;
 
 entity Guitars {
   key ID: UUID;
   brand: String(50);
   model: String(50);
-  price: Decimal(8,2);
-  description: String(500);
-  quantity: Integer;
+  price: Decimal(10,2);
+  color: String(20);
+  year: Integer;
   category: Association to Categories;
-  orderItems: Association to many OrderItems on orderItems.guitar = $self;
+  owner: Association to Owners;
 }
 
 entity Categories {
@@ -18,18 +18,11 @@ entity Categories {
   guitars: Association to many Guitars on guitars.category = $self;
 }
 
-entity OrderItems {
+entity Owners {
   key ID: UUID;
-  quantity: Integer;
-  price: Decimal(8,2);
-  guitar: Association to Guitars;
-  order: Association to Orders;
-}
-
-entity Orders {
-  key ID: UUID;
-  orderDate: Date;
-  totalPrice: Decimal(10,2);
-  orderItems: Composition of many OrderItems on orderItems.order = $self;
+  name: String(50) @assert.unique @mandatory;
+  email: String(100);
+  phone: String(20);
+  guitars: Association to many Guitars on guitars.owner = $self;
 }
 

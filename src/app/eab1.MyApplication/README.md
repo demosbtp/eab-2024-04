@@ -1,14 +1,14 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Mon Feb 26 2024 11:11:43 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Tue Feb 27 2024 13:55:07 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.12.4|
 |**Generation Platform**<br>SAP Business Application Studio|
-|**Template Used**<br>Form Entry Object Page V4|
+|**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
-|**Service URL**<br>http://localhost:4004/service/eabtest2/
-|**Module Name**<br>eab_test2.MyApplication|
+|**Service URL**<br>http://localhost:4004/service/eab/
+|**Module Name**<br>eab1.MyApplication|
 |**Application Title**<br>My Application|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
@@ -17,9 +17,8 @@
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
 |**Main Entity**<br>Guitars|
-|**Navigation Entity**<br>None|
 
-## eab_test2.MyApplication
+## eab1.MyApplication
 
 My SAP application
 
@@ -27,7 +26,7 @@ My SAP application
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply start your CAP project and navigate to the following location in your browser:
 
-http://localhost:4004/eab_test2.MyApplication/webapp/index.html
+http://localhost:4004/eab1.MyApplication/webapp/index.html
 
 #### Pre-requisites:
 

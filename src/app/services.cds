@@ -1,2 +1,2 @@
 
-using from './eab_test2.MyApplication/annotations';
+using from './eab1.MyApplication/annotations';
