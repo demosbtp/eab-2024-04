@@ -110,7 +110,7 @@ jobs:
         export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
         export CF_API_URL=${{ env.CF_API_URL }}
         terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
-        echo "CF_SPACE_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF_HANA }}' output -raw -no-color cf_space_id)" >> "$GITHUB_ENV"
+        echo "CF_SPACE_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' output -raw -no-color cf_space_id)" >> "$GITHUB_ENV"
 
     - name: Assign CF users
       id: assign_cf_users
