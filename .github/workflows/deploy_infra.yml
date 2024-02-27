@@ -102,7 +102,7 @@ jobs:
       run: |
         terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
 
-    - name: Terraform Apply Cloud Foundry Space Setup
+    - name: Terraform Apply Cloud Foundry Space Setup and Service instances
       id: terraform_setup_cf
       shell: bash
       run: |
@@ -123,18 +123,18 @@ jobs:
         cf_space: ${{ env.CF_SPACE_NAME }}
         command: |
           cf8 set-org-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} OrgManager \
-          && cf8 set-org-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} OrgManager --origin sap.default\
+          && cf8 set-org-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} OrgManager --origin sap.ids\
           && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager \
           && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper \
-          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.default\
-          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.default
+          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.ids\
+          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.ids
 
 
-    - name: Terraform Init for SAP HANA Cloud on CF
-      id: terraform_init_cf_hana
-      shell: bash
-      run: |
-        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF_HANA }} init -no-color
+#    - name: Terraform Init for SAP HANA Cloud on CF
+#      id: terraform_init_cf_hana
+#      shell: bash
+#      run: |
+#        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF_HANA }} init -no-color
 
     - name: Terraform Apply Cloud Foundry Space Setup
       id: terraform_setup_cf_hana
