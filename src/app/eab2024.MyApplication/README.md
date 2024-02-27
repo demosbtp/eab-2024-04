@@ -1,14 +1,14 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Tue Feb 27 2024 13:55:07 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Tue Feb 27 2024 16:24:04 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.12.4|
 |**Generation Platform**<br>SAP Business Application Studio|
 |**Template Used**<br>List Report Page V4|
 |**Service Type**<br>Local Cap|
 |**Service URL**<br>http://localhost:4004/service/eab/
-|**Module Name**<br>eab1.MyApplication|
+|**Module Name**<br>eab2024.MyApplication|
 |**Application Title**<br>My Application|
 |**Namespace**<br>|
 |**UI5 Theme**<br>sap_horizon|
@@ -18,7 +18,7 @@
 |**Add Eslint configuration**<br>False|
 |**Main Entity**<br>Guitars|
 
-## eab1.MyApplication
+## eab2024.MyApplication
 
 My SAP application
 
@@ -26,7 +26,7 @@ My SAP application
 
 -   This app has been generated using the SAP Fiori tools - App Generator, as part of the SAP Fiori tools suite.  In order to launch the generated app, simply start your CAP project and navigate to the following location in your browser:
 
-http://localhost:4004/eab1.MyApplication/webapp/index.html
+http://localhost:4004/eab2024.MyApplication/webapp/index.html
 
 #### Pre-requisites:
 

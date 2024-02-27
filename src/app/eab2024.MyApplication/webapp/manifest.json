@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "eab1.MyApplication",
+    "id": "eab2024.MyApplication",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.12.4",
-      "toolsId": "3330b96f-6dee-431e-931d-4b2126c87459"
+      "toolsId": "3951f572-1ccf-4a6e-88a5-fdc40818689c"
     },
     "dataSources": {
       "mainService": {
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "eab1MyApplication-display": {
-          "semanticObject": "eab1MyApplication",
+        "eab2024MyApplication-display": {
+          "semanticObject": "eab2024MyApplication",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "eab1.MyApplication.i18n.i18n"
+          "bundleName": "eab2024.MyApplication.i18n.i18n"
         }
       },
       "": {
