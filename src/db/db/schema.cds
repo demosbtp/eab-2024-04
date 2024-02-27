@@ -1,28 +1,29 @@
-namespace eab1;
+namespace eab2024;
 
 entity Guitars {
   key ID: UUID;
   brand: String(50);
   model: String(50);
-  price: Decimal(10,2);
   color: String(20);
-  year: Integer;
-  category: Association to Categories;
-  owner: Association to Owners;
+  price: Decimal(10,2);
+  description: String(500);
 }
 
-entity Categories {
+entity Customers {
   key ID: UUID;
-  name: String(50) @assert.unique @mandatory;
-  description: String(100);
-  guitars: Association to many Guitars on guitars.category = $self;
-}
-
-entity Owners {
-  key ID: UUID;
-  name: String(50) @assert.unique @mandatory;
+  firstName: String(50);
+  lastName: String(50);
   email: String(100);
   phone: String(20);
-  guitars: Association to many Guitars on guitars.owner = $self;
+  address: String(200);
+}
+
+entity Orders {
+  key ID: UUID;
+  orderNumber: String(20);
+  orderDate: Date;
+  totalAmount: Decimal(10,2);
+  status: String(20);
+  customer: Association to Customers;
 }
 
