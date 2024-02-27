@@ -27,6 +27,7 @@ echo ""
 echo "# --------------------------------------------------------"
 echo "# Checkout code and create a PR for the changes"
 echo "# --------------------------------------------------------"
+cd eab-2024-04
 git checkout -b eab-demo2024-04
 git add .
 git commit -m "feat: add CAP app by Joule" 
