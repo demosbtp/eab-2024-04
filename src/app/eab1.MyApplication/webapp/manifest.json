@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "eabtest2.MyApplication",
+    "id": "eab1.MyApplication",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -11,13 +11,13 @@
     "description": "{{appDescription}}",
     "resources": "resources.json",
     "sourceTemplate": {
-      "id": "@sap/generator-fiori:feop",
+      "id": "@sap/generator-fiori:lrop",
       "version": "1.12.4",
-      "toolsId": "e8089656-5d82-4f7e-822c-816eb82a30ca"
+      "toolsId": "3330b96f-6dee-431e-931d-4b2126c87459"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/service/eabtest2/",
+        "uri": "/service/eab/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "eabtest2MyApplication-display": {
-          "semanticObject": "eabtest2MyApplication",
+        "eab1MyApplication-display": {
+          "semanticObject": "eab1MyApplication",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "eabtest2.MyApplication.i18n.i18n"
+          "bundleName": "eab1.MyApplication.i18n.i18n"
         }
       },
       "": {
@@ -99,12 +99,35 @@
       "config": {},
       "routes": [
         {
+          "pattern": ":?query:",
+          "name": "GuitarsList",
+          "target": "GuitarsList"
+        },
+        {
           "pattern": "Guitars({key}):?query:",
           "name": "GuitarsObjectPage",
           "target": "GuitarsObjectPage"
         }
       ],
       "targets": {
+        "GuitarsList": {
+          "type": "Component",
+          "id": "GuitarsList",
+          "name": "sap.fe.templates.ListReport",
+          "options": {
+            "settings": {
+              "contextPath": "/Guitars",
+              "variantManagement": "Page",
+              "navigation": {
+                "Guitars": {
+                  "detail": {
+                    "route": "GuitarsObjectPage"
+                  }
+                }
+              }
+            }
+          }
+        },
         "GuitarsObjectPage": {
           "type": "Component",
           "id": "GuitarsObjectPage",
@@ -112,13 +135,7 @@
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Guitars",
-              "content": {
-                "header": {
-                  "visible": false,
-                  "anchorBarVisible": false
-                }
-              }
+              "contextPath": "/Guitars"
             }
           }
         }

@@ -1,7 +1,7 @@
-using { eabtest2 } from '../srv/service.cds';
+using { eab1 } from '../srv/service.cds';
 
-annotate eabtest2.Guitars with @UI.HeaderInfo: { TypeName: 'Guitar', TypeNamePlural: 'Guitars' };
-annotate eabtest2.Guitars with {
+annotate eab1.Guitars with @UI.HeaderInfo: { TypeName: 'Guitar', TypeNamePlural: 'Guitars' };
+annotate eab1.Guitars with {
   category @Common.ValueList: {
     CollectionPath: 'Categories',
     Parameters    : [
@@ -21,239 +21,167 @@ annotate eabtest2.Guitars with {
     ],
   }
 };
-annotate eabtest2.Guitars with @UI.DataPoint #brand: {
+annotate eab1.Guitars with {
+  owner @Common.ValueList: {
+    CollectionPath: 'Owners',
+    Parameters    : [
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: owner_ID, 
+        ValueListProperty: 'ID'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'name'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'email'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'phone'
+      },
+    ],
+  }
+};
+annotate eab1.Guitars with @UI.DataPoint #brand: {
   Value: brand,
   Title: 'Brand',
 };
-annotate eabtest2.Guitars with @UI.DataPoint #model: {
+annotate eab1.Guitars with @UI.DataPoint #model: {
   Value: model,
   Title: 'Model',
 };
-annotate eabtest2.Guitars with @UI.DataPoint #price: {
+annotate eab1.Guitars with @UI.DataPoint #price: {
   Value: price,
   Title: 'Price',
 };
-annotate eabtest2.Guitars with {
+annotate eab1.Guitars with {
   brand @title: 'Brand';
   model @title: 'Model';
   price @title: 'Price';
-  description @title: 'Description';
-  quantity @title: 'Quantity'
+  color @title: 'Color';
+  year @title: 'Year'
 };
 
-annotate eabtest2.Guitars with @UI.LineItem: [
+annotate eab1.Guitars with @UI.LineItem: [
     { $Type: 'UI.DataField', Value: brand },
     { $Type: 'UI.DataField', Value: model },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: description },
-    { $Type: 'UI.DataField', Value: quantity },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
+    { $Type: 'UI.DataField', Value: color },
+    { $Type: 'UI.DataField', Value: year },
+    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID },
+    { $Type: 'UI.DataField', Label: 'Owner', Value: owner_ID }
 ];
 
-annotate eabtest2.Guitars with @UI.FieldGroup #Main: {
+annotate eab1.Guitars with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
     { $Type: 'UI.DataField', Value: brand },
     { $Type: 'UI.DataField', Value: model },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: description },
-    { $Type: 'UI.DataField', Value: quantity },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
+    { $Type: 'UI.DataField', Value: color },
+    { $Type: 'UI.DataField', Value: year },
+    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID },
+    { $Type: 'UI.DataField', Label: 'Owner', Value: owner_ID }
   ]
 };
 
-annotate eabtest2.Guitars with {
-  category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly }
+annotate eab1.Guitars with {
+  category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly };
+  owner @Common.Text: { $value: owner.name, ![@UI.TextArrangement]: #TextOnly }
 };
 
-annotate eabtest2.Guitars with {
+annotate eab1.Guitars with {
   category @Common.Label: 'Category';
-  orderItems @Common.Label: 'Order Items'
+  owner @Common.Label: 'Owner'
 };
 
-annotate eabtest2.Guitars with @UI.HeaderFacets: [
+annotate eab1.Guitars with @UI.HeaderFacets: [
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#brand' },
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#model' },
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#price' }
 ];
 
-annotate eabtest2.Guitars with @UI.Facets: [
+annotate eab1.Guitars with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate eabtest2.Guitars with @UI.SelectionFields: [
-  category_ID
+annotate eab1.Guitars with @UI.SelectionFields: [
+  category_ID,
+  owner_ID
 ];
 
-annotate eabtest2.Categories with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
-annotate eabtest2.Categories with {
+annotate eab1.Categories with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
+annotate eab1.Categories with {
   ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate eabtest2.Categories with @UI.Identification: [{ Value: name }];
-annotate eabtest2.Categories with {
-  name @title: 'Name';
+annotate eab1.Categories with @UI.Identification: [{ Value: name }];
+annotate eab1.Categories with {
   description @title: 'Description'
 };
 
-annotate eabtest2.Categories with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: name },
+annotate eab1.Categories with @UI.LineItem: [
     { $Type: 'UI.DataField', Value: description }
 ];
 
-annotate eabtest2.Categories with @UI.FieldGroup #Main: {
+annotate eab1.Categories with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: name },
     { $Type: 'UI.DataField', Value: description }
   ]
 };
 
-annotate eabtest2.Categories with {
+annotate eab1.Categories with {
   guitars @Common.Label: 'Guitars'
 };
 
-annotate eabtest2.Categories with @UI.Facets: [
+annotate eab1.Categories with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate eabtest2.Categories with @UI.SelectionFields: [
+annotate eab1.Categories with @UI.SelectionFields: [
   name
 ];
 
-annotate eabtest2.OrderItems with @UI.HeaderInfo: { TypeName: 'Order Item', TypeNamePlural: 'Order Items' };
-annotate eabtest2.OrderItems with {
-  guitar @Common.ValueList: {
-    CollectionPath: 'Guitars',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: guitar_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'brand'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'model'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'price'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'description'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'quantity'
-      },
-    ],
-  }
+annotate eab1.Owners with @UI.HeaderInfo: { TypeName: 'Owner', TypeNamePlural: 'Owners', Title: { Value: name } };
+annotate eab1.Owners with {
+  ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate eabtest2.OrderItems with {
-  order @Common.ValueList: {
-    CollectionPath: 'Orders',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: order_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'orderDate'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'totalPrice'
-      },
-    ],
-  }
+annotate eab1.Owners with @UI.Identification: [{ Value: name }];
+annotate eab1.Owners with @UI.DataPoint #email: {
+  Value: email,
+  Title: 'Email',
 };
-annotate eabtest2.OrderItems with @UI.DataPoint #quantity: {
-  Value: quantity,
-  Title: 'Quantity',
-};
-annotate eabtest2.OrderItems with @UI.DataPoint #price: {
-  Value: price,
-  Title: 'Price',
-};
-annotate eabtest2.OrderItems with {
-  quantity @title: 'Quantity';
-  price @title: 'Price'
+annotate eab1.Owners with {
+  email @title: 'Email';
+  phone @title: 'Phone'
 };
 
-annotate eabtest2.OrderItems with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: quantity },
-    { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Label: 'Guitar', Value: guitar_ID }
+annotate eab1.Owners with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: email },
+    { $Type: 'UI.DataField', Value: phone }
 ];
 
-annotate eabtest2.OrderItems with @UI.FieldGroup #Main: {
+annotate eab1.Owners with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: quantity },
-    { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Label: 'Guitar', Value: guitar_ID }
+    { $Type: 'UI.DataField', Value: email },
+    { $Type: 'UI.DataField', Value: phone }
   ]
 };
 
-annotate eabtest2.OrderItems with {
-  guitar @Common.Label: 'Guitar';
-  order @Common.Label: 'Order'
+annotate eab1.Owners with {
+  guitars @Common.Label: 'Guitars'
 };
 
-annotate eabtest2.OrderItems with @UI.HeaderFacets: [
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#quantity' },
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#price' }
+annotate eab1.Owners with @UI.HeaderFacets: [
+ { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#email' }
 ];
 
-annotate eabtest2.OrderItems with @UI.Facets: [
+annotate eab1.Owners with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate eabtest2.OrderItems with @UI.SelectionFields: [
-  guitar_ID,
-  order_ID
-];
-
-annotate eabtest2.Orders with @UI.HeaderInfo: { TypeName: 'Order', TypeNamePlural: 'Orders' };
-annotate eabtest2.Orders with @UI.DataPoint #orderDate: {
-  Value: orderDate,
-  Title: 'Order Date',
-};
-annotate eabtest2.Orders with @UI.DataPoint #totalPrice: {
-  Value: totalPrice,
-  Title: 'Total Price',
-};
-annotate eabtest2.Orders with {
-  orderDate @title: 'Order Date';
-  totalPrice @title: 'Total Price'
-};
-
-annotate eabtest2.Orders with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: orderDate },
-    { $Type: 'UI.DataField', Value: totalPrice }
-];
-
-annotate eabtest2.Orders with @UI.FieldGroup #Main: {
-  $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: orderDate },
-    { $Type: 'UI.DataField', Value: totalPrice }
-  ]
-};
-
-annotate eabtest2.Orders with {
-  orderItems @Common.Label: 'Order Items'
-};
-
-annotate eabtest2.Orders with @UI.HeaderFacets: [
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#orderDate' },
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#totalPrice' }
-];
-
-annotate eabtest2.Orders with @UI.Facets: [
-  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' },
-  { $Type : 'UI.ReferenceFacet', ID : 'OrderItems', Target : 'orderItems/@UI.LineItem' }
+annotate eab1.Owners with @UI.SelectionFields: [
+  name
 ];
 
