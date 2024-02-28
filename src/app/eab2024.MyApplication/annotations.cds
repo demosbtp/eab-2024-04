@@ -1,1 +1,0 @@
-using eabService as service from '../../srv/service';

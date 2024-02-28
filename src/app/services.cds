@@ -1,2 +1,2 @@
 
-using from './eab2024.MyApplication/annotations';
+using from './btp_demo.MyApplication/annotations';
