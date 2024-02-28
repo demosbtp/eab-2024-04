@@ -14,11 +14,18 @@ echo "# Clone repo https://github.com/demosbtp/eab-2024-04.git"
 echo "# --------------------------------------------------------"
 git clone https://github.com/demosbtp/eab-2024-04.git
 echo "- cloned repo"
+
+echo "# --------------------------------------------------------"
+echo "# Create new branch eab-demo2024-04 and checkout"
+echo "# --------------------------------------------------------"
+cd eab-2024-04
+git checkout -b eab-demo2024-04
+cd ..
 echo ""
 echo "# --------------------------------------------------------"
 echo "# Cleaning up eab-2024-04 repo"
 echo "# --------------------------------------------------------"
-rm -rf eab-2024-04/src/*
+rm -rf eab-2024-04/src
 mkdir -p eab-2024-04/src/app
 mkdir -p eab-2024-04/src/db
 mkdir -p eab-2024-04/src/srv
@@ -36,10 +43,9 @@ cp -f  $1/.gitignore eab-2024-04/src
 echo "- copied code from project $1 to eab-2024-04 repo"
 echo ""
 echo "# --------------------------------------------------------"
-echo "# Checkout code and create a PR for the changes"
+echo "# create a PR for the changes"
 echo "# --------------------------------------------------------"
 cd eab-2024-04
-git checkout -b eab-demo2024-04
 git add .
 git commit -m "feat: add CAP app by Joule" 
 git push -u origin eab-demo2024-04
