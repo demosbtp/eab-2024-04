@@ -13,7 +13,7 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.12.4",
-      "toolsId": "fb7094a1-c033-4a44-9680-1e520fe9a961"
+      "toolsId": "ea01fdd7-d872-4234-9c92-87f8eed7dd5c"
     },
     "dataSources": {
       "mainService": {
@@ -100,42 +100,42 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "GuitarList",
-          "target": "GuitarList"
+          "name": "GuitarsList",
+          "target": "GuitarsList"
         },
         {
-          "pattern": "Guitar({key}):?query:",
-          "name": "GuitarObjectPage",
-          "target": "GuitarObjectPage"
+          "pattern": "Guitars({key}):?query:",
+          "name": "GuitarsObjectPage",
+          "target": "GuitarsObjectPage"
         }
       ],
       "targets": {
-        "GuitarList": {
+        "GuitarsList": {
           "type": "Component",
-          "id": "GuitarList",
+          "id": "GuitarsList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Guitar",
+              "contextPath": "/Guitars",
               "variantManagement": "Page",
               "navigation": {
-                "Guitar": {
+                "Guitars": {
                   "detail": {
-                    "route": "GuitarObjectPage"
+                    "route": "GuitarsObjectPage"
                   }
                 }
               }
             }
           }
         },
-        "GuitarObjectPage": {
+        "GuitarsObjectPage": {
           "type": "Component",
-          "id": "GuitarObjectPage",
+          "id": "GuitarsObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Guitar"
+              "contextPath": "/Guitars"
             }
           }
         }

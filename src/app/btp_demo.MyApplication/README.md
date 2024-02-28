@@ -1,7 +1,7 @@
 ## Application Details
 |               |
 | ------------- |
-|**Generation Date and Time**<br>Wed Feb 28 2024 09:17:33 GMT+0000 (Coordinated Universal Time)|
+|**Generation Date and Time**<br>Wed Feb 28 2024 10:22:12 GMT+0000 (Coordinated Universal Time)|
 |**App Generator**<br>@sap/generator-fiori-elements|
 |**App Generator Version**<br>1.12.4|
 |**Generation Platform**<br>SAP Business Application Studio|
@@ -16,7 +16,7 @@
 |**Enable Code Assist Libraries**<br>False|
 |**Enable TypeScript**<br>False|
 |**Add Eslint configuration**<br>False|
-|**Main Entity**<br>Guitar|
+|**Main Entity**<br>Guitars|
 
 ## btp_demo.MyApplication
 
