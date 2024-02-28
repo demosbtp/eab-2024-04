@@ -9,8 +9,8 @@ sap.ui.define(['sap/fe/test/ListReport'], function(ListReport) {
     return new ListReport(
         {
             appId: 'btpdemo.MyApplication',
-            componentId: 'GuitarList',
-            contextPath: '/Guitar'
+            componentId: 'GuitarsList',
+            contextPath: '/Guitars'
         },
         CustomPageDefinitions
     );

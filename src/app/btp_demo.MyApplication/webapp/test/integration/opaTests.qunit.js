@@ -2,10 +2,10 @@ sap.ui.require(
     [
         'sap/fe/test/JourneyRunner',
         'btpdemo/MyApplication/test/integration/FirstJourney',
-		'btpdemo/MyApplication/test/integration/pages/GuitarList',
-		'btpdemo/MyApplication/test/integration/pages/GuitarObjectPage'
+		'btpdemo/MyApplication/test/integration/pages/GuitarsList',
+		'btpdemo/MyApplication/test/integration/pages/GuitarsObjectPage'
     ],
-    function(JourneyRunner, opaJourney, GuitarList, GuitarObjectPage) {
+    function(JourneyRunner, opaJourney, GuitarsList, GuitarsObjectPage) {
         'use strict';
         var JourneyRunner = new JourneyRunner({
             // start index.html in web folder
@@ -16,8 +16,8 @@ sap.ui.require(
         JourneyRunner.run(
             {
                 pages: { 
-					onTheGuitarList: GuitarList,
-					onTheGuitarObjectPage: GuitarObjectPage
+					onTheGuitarsList: GuitarsList,
+					onTheGuitarsObjectPage: GuitarsObjectPage
                 }
             },
             opaJourney.run

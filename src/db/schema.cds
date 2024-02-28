@@ -1,40 +1,30 @@
 namespace namespace;
 
-entity Guitar {
+entity Guitars {
   key ID: UUID;
-  brand: String(100);
-  model: String(100);
-  color: String(50);
+  brand: String(50);
+  model: String(50);
+  color: String(20);
   price: Decimal(10,2);
-  inStock: Boolean;
-  owner: Association to RockStar;
-  category: Association to Category;
+  year: Integer;
+  serialNumber: String(50);
+  owner: Association to RockStars;
+  category: Association to Categories;
 }
 
-entity RockStar {
+entity RockStars {
   key ID: UUID;
   name: String(100) @assert.unique @mandatory;
-  genre: String(50);
   age: Integer;
-  netWorth: Decimal(10,2);
-  guitars: Association to many Guitar on guitars.owner = $self;
-  band: Association to Band;
+  nationality: String(50);
+  netWorth: Decimal(15,2);
+  guitars: Association to many Guitars on guitars.owner = $self;
 }
 
-entity Category {
+entity Categories {
   key ID: UUID;
   name: String(50) @assert.unique @mandatory;
   description: String(100);
-  guitars: Association to many Guitar on guitars.category = $self;
-  band: Association to Band;
-}
-
-entity Band {
-  key ID: UUID;
-  name: String(100) @assert.unique @mandatory;
-  genre: String(50);
-  foundingYear: Integer;
-  members: Association to many RockStar on members.band = $self;
-  category: Association to Category;
+  guitars: Association to many Guitars on guitars.category = $self;
 }
 

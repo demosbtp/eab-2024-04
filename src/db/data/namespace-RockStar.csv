@@ -1,6 +1,0 @@
-ID;name;genre;age;netWorth;band_ID
-19da6cee-47e0-4ae1-afd3-ac3c2e5716d1;John Lennon;Rock;40;50000000.00;19da6cee-47e0-4ae1-afd3-ac3c2e5716d1
-014a26af-a7eb-4dce-9ea0-7381b7cfe767;Jimmy Page;Rock;75;170000000.00;014a26af-a7eb-4dce-9ea0-7381b7cfe767
-af02721d-24b0-4df7-a1a9-5c807bec19fb;Freddie Mercury;Rock;45;50000000.00;af02721d-24b0-4df7-a1a9-5c807bec19fb
-ca7451a3-e025-466c-b4e0-2aaca0a93c9e;Kurt Cobain;Grunge;27;100000000.00;ca7451a3-e025-466c-b4e0-2aaca0a93c9e
-765bed47-e40f-4f8c-a9f7-e4fc5880c830;James Hetfield;Metal;58;300000000.00;765bed47-e40f-4f8c-a9f7-e4fc5880c830

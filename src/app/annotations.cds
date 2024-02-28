@@ -1,9 +1,9 @@
 using { namespace } from '../srv/service.cds';
 
-annotate namespace.Guitar with @UI.HeaderInfo: { TypeName: 'Guitar', TypeNamePlural: 'Guitars' };
-annotate namespace.Guitar with {
+annotate namespace.Guitars with @UI.HeaderInfo: { TypeName: 'Guitar', TypeNamePlural: 'Guitars' };
+annotate namespace.Guitars with {
   owner @Common.ValueList: {
-    CollectionPath: 'RockStar',
+    CollectionPath: 'RockStars',
     Parameters    : [
       {
         $Type            : 'Common.ValueListParameterInOut',
@@ -16,11 +16,11 @@ annotate namespace.Guitar with {
       },
       {
         $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'genre'
+        ValueListProperty: 'age'
       },
       {
         $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'age'
+        ValueListProperty: 'nationality'
       },
       {
         $Type            : 'Common.ValueListParameterDisplayOnly',
@@ -29,9 +29,9 @@ annotate namespace.Guitar with {
     ],
   }
 };
-annotate namespace.Guitar with {
+annotate namespace.Guitars with {
   category @Common.ValueList: {
-    CollectionPath: 'Category',
+    CollectionPath: 'Categories',
     Parameters    : [
       {
         $Type            : 'Common.ValueListParameterInOut',
@@ -49,264 +49,141 @@ annotate namespace.Guitar with {
     ],
   }
 };
-annotate namespace.Guitar with @UI.DataPoint #brand: {
+annotate namespace.Guitars with @UI.DataPoint #brand: {
   Value: brand,
   Title: 'Brand',
 };
-annotate namespace.Guitar with @UI.DataPoint #model: {
+annotate namespace.Guitars with @UI.DataPoint #model: {
   Value: model,
   Title: 'Model',
 };
-annotate namespace.Guitar with @UI.DataPoint #price: {
+annotate namespace.Guitars with @UI.DataPoint #price: {
   Value: price,
   Title: 'Price',
 };
-annotate namespace.Guitar with {
+annotate namespace.Guitars with {
   brand @title: 'Brand';
   model @title: 'Model';
   color @title: 'Color';
   price @title: 'Price';
-  inStock @title: 'In Stock'
+  year @title: 'Year';
+  serialNumber @title: 'Serial Number'
 };
 
-annotate namespace.Guitar with @UI.LineItem: [
+annotate namespace.Guitars with @UI.LineItem: [
     { $Type: 'UI.DataField', Value: brand },
     { $Type: 'UI.DataField', Value: model },
     { $Type: 'UI.DataField', Value: color },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: inStock },
-    { $Type: 'UI.DataField', Label: 'Rock Star', Value: owner_ID },
+    { $Type: 'UI.DataField', Value: year },
+    { $Type: 'UI.DataField', Value: serialNumber },
+    { $Type: 'UI.DataField', Label: 'RockStar', Value: owner_ID },
     { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
 ];
 
-annotate namespace.Guitar with @UI.FieldGroup #Main: {
+annotate namespace.Guitars with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
     { $Type: 'UI.DataField', Value: brand },
     { $Type: 'UI.DataField', Value: model },
     { $Type: 'UI.DataField', Value: color },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: inStock },
-    { $Type: 'UI.DataField', Label: 'Rock Star', Value: owner_ID },
+    { $Type: 'UI.DataField', Value: year },
+    { $Type: 'UI.DataField', Value: serialNumber },
+    { $Type: 'UI.DataField', Label: 'RockStar', Value: owner_ID },
     { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
   ]
 };
 
-annotate namespace.Guitar with {
+annotate namespace.Guitars with {
   owner @Common.Text: { $value: owner.name, ![@UI.TextArrangement]: #TextOnly };
   category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly }
 };
 
-annotate namespace.Guitar with {
-  owner @Common.Label: 'Rock Star';
+annotate namespace.Guitars with {
+  owner @Common.Label: 'RockStar';
   category @Common.Label: 'Category'
 };
 
-annotate namespace.Guitar with @UI.HeaderFacets: [
+annotate namespace.Guitars with @UI.HeaderFacets: [
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#brand' },
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#model' },
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#price' }
 ];
 
-annotate namespace.Guitar with @UI.Facets: [
+annotate namespace.Guitars with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate namespace.Guitar with @UI.SelectionFields: [
+annotate namespace.Guitars with @UI.SelectionFields: [
   owner_ID,
   category_ID
 ];
 
-annotate namespace.RockStar with @UI.HeaderInfo: { TypeName: 'Rock Star', TypeNamePlural: 'Rock Stars', Title: { Value: name } };
-annotate namespace.RockStar with {
+annotate namespace.RockStars with @UI.HeaderInfo: { TypeName: 'RockStar', TypeNamePlural: 'RockStars', Title: { Value: name } };
+annotate namespace.RockStars with {
   ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate namespace.RockStar with @UI.Identification: [{ Value: name }];
-annotate namespace.RockStar with {
-  band @Common.ValueList: {
-    CollectionPath: 'Band',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: band_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'name'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'genre'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'foundingYear'
-      },
-    ],
-  }
-};
-annotate namespace.RockStar with {
-  genre @title: 'Genre';
+annotate namespace.RockStars with @UI.Identification: [{ Value: name }];
+annotate namespace.RockStars with {
   age @title: 'Age';
+  nationality @title: 'Nationality';
   netWorth @title: 'Net Worth'
 };
 
-annotate namespace.RockStar with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: genre },
+annotate namespace.RockStars with @UI.LineItem: [
     { $Type: 'UI.DataField', Value: age },
-    { $Type: 'UI.DataField', Value: netWorth },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID }
+    { $Type: 'UI.DataField', Value: nationality },
+    { $Type: 'UI.DataField', Value: netWorth }
 ];
 
-annotate namespace.RockStar with @UI.FieldGroup #Main: {
+annotate namespace.RockStars with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: genre },
     { $Type: 'UI.DataField', Value: age },
-    { $Type: 'UI.DataField', Value: netWorth },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID }
+    { $Type: 'UI.DataField', Value: nationality },
+    { $Type: 'UI.DataField', Value: netWorth }
   ]
 };
 
-annotate namespace.RockStar with {
-  band @Common.Text: { $value: band.name, ![@UI.TextArrangement]: #TextOnly }
+annotate namespace.RockStars with {
+  guitars @Common.Label: 'Guitars'
 };
 
-annotate namespace.RockStar with {
-  guitars @Common.Label: 'Guitars';
-  band @Common.Label: 'Band'
-};
-
-annotate namespace.RockStar with @UI.Facets: [
+annotate namespace.RockStars with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate namespace.RockStar with @UI.SelectionFields: [
-  band_ID
+annotate namespace.RockStars with @UI.SelectionFields: [
+  name
 ];
 
-annotate namespace.Category with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
-annotate namespace.Category with {
+annotate namespace.Categories with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
+annotate namespace.Categories with {
   ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate namespace.Category with @UI.Identification: [{ Value: name }];
-annotate namespace.Category with {
-  band @Common.ValueList: {
-    CollectionPath: 'Band',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: band_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'name'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'genre'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'foundingYear'
-      },
-    ],
-  }
-};
-annotate namespace.Category with {
+annotate namespace.Categories with @UI.Identification: [{ Value: name }];
+annotate namespace.Categories with {
   description @title: 'Description'
 };
 
-annotate namespace.Category with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: description },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID }
+annotate namespace.Categories with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: description }
 ];
 
-annotate namespace.Category with @UI.FieldGroup #Main: {
+annotate namespace.Categories with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: description },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID }
+    { $Type: 'UI.DataField', Value: description }
   ]
 };
 
-annotate namespace.Category with {
-  band @Common.Text: { $value: band.name, ![@UI.TextArrangement]: #TextOnly }
+annotate namespace.Categories with {
+  guitars @Common.Label: 'Guitars'
 };
 
-annotate namespace.Category with {
-  guitars @Common.Label: 'Guitars';
-  band @Common.Label: 'Band'
-};
-
-annotate namespace.Category with @UI.Facets: [
+annotate namespace.Categories with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate namespace.Category with @UI.SelectionFields: [
-  band_ID
-];
-
-annotate namespace.Band with @UI.HeaderInfo: { TypeName: 'Band', TypeNamePlural: 'Bands', Title: { Value: name } };
-annotate namespace.Band with {
-  ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
-};
-annotate namespace.Band with @UI.Identification: [{ Value: name }];
-annotate namespace.Band with {
-  category @Common.ValueList: {
-    CollectionPath: 'Category',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: category_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'name'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'description'
-      },
-    ],
-  }
-};
-annotate namespace.Band with {
-  name @title: 'Name';
-  genre @title: 'Genre';
-  foundingYear @title: 'Founding Year'
-};
-
-annotate namespace.Band with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: name },
-    { $Type: 'UI.DataField', Value: genre },
-    { $Type: 'UI.DataField', Value: foundingYear },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
-];
-
-annotate namespace.Band with @UI.FieldGroup #Main: {
-  $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: name },
-    { $Type: 'UI.DataField', Value: genre },
-    { $Type: 'UI.DataField', Value: foundingYear },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
-  ]
-};
-
-annotate namespace.Band with {
-  category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly }
-};
-
-annotate namespace.Band with {
-  members @Common.Label: 'Rock Stars';
-  category @Common.Label: 'Category'
-};
-
-annotate namespace.Band with @UI.Facets: [
-  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
-];
-
-annotate namespace.Band with @UI.SelectionFields: [
-  category_ID
+annotate namespace.Categories with @UI.SelectionFields: [
+  name
 ];
 
