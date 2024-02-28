@@ -1,6 +1,0 @@
-ID;brand;model;color;price;inStock;band_ID;category_ID
-4641842b-9c9c-454d-b855-b059b9fbf313;Fender;Stratocaster;Sunburst;999.99;true;4641842b-9c9c-454d-b855-b059b9fbf313;4641842b-9c9c-454d-b855-b059b9fbf313
-6094b4ff-56d2-4e52-b25f-a4668abc52db;Gibson;Les Paul;Cherry Red;1499.99;true;4641842b-9c9c-454d-b855-b059b9fbf313;4641842b-9c9c-454d-b855-b059b9fbf313
-937e6cd5-9249-4330-9a7c-6e67f13153fd;Fender;Telecaster;Butterscotch Blonde;899.99;true;6094b4ff-56d2-4e52-b25f-a4668abc52db;4641842b-9c9c-454d-b855-b059b9fbf313
-d1f0f22e-506c-4149-8831-88905c0f9a3e;Gibson;SG;Ebony;1299.99;true;6094b4ff-56d2-4e52-b25f-a4668abc52db;4641842b-9c9c-454d-b855-b059b9fbf313
-5b16d863-8b35-49d1-b298-de6d901fa699;Fender;Jazzmaster;Ocean Turquoise;1199.99;true;937e6cd5-9249-4330-9a7c-6e67f13153fd;937e6cd5-9249-4330-9a7c-6e67f13153fd
