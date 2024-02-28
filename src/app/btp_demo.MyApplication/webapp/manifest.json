@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "eab2024.MyApplication",
+    "id": "btpdemo.MyApplication",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,11 +13,11 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.12.4",
-      "toolsId": "3951f572-1ccf-4a6e-88a5-fdc40818689c"
+      "toolsId": "fb7094a1-c033-4a44-9680-1e520fe9a961"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/service/eab/",
+        "uri": "/service/servicename/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "eab2024MyApplication-display": {
-          "semanticObject": "eab2024MyApplication",
+        "btpdemoMyApplication-display": {
+          "semanticObject": "btpdemoMyApplication",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "eab2024.MyApplication.i18n.i18n"
+          "bundleName": "btpdemo.MyApplication.i18n.i18n"
         }
       },
       "": {
@@ -100,42 +100,42 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "GuitarsList",
-          "target": "GuitarsList"
+          "name": "GuitarList",
+          "target": "GuitarList"
         },
         {
-          "pattern": "Guitars({key}):?query:",
-          "name": "GuitarsObjectPage",
-          "target": "GuitarsObjectPage"
+          "pattern": "Guitar({key}):?query:",
+          "name": "GuitarObjectPage",
+          "target": "GuitarObjectPage"
         }
       ],
       "targets": {
-        "GuitarsList": {
+        "GuitarList": {
           "type": "Component",
-          "id": "GuitarsList",
+          "id": "GuitarList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Guitars",
+              "contextPath": "/Guitar",
               "variantManagement": "Page",
               "navigation": {
-                "Guitars": {
+                "Guitar": {
                   "detail": {
-                    "route": "GuitarsObjectPage"
+                    "route": "GuitarObjectPage"
                   }
                 }
               }
             }
           }
         },
-        "GuitarsObjectPage": {
+        "GuitarObjectPage": {
           "type": "Component",
-          "id": "GuitarsObjectPage",
+          "id": "GuitarObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Guitars"
+              "contextPath": "/Guitar"
             }
           }
         }

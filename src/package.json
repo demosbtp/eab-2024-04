@@ -1,5 +1,5 @@
 {
-  "name": "eab2024",
+  "name": "btp_demo",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
@@ -24,7 +24,7 @@
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-eab2024.MyApplication": "cds watch --open eab2024.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-btp_demo.MyApplication": "cds watch --open btp_demo.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -44,6 +44,6 @@
   },
   "lcap": true,
   "sapux": [
-    "app/eab2024.MyApplication"
+    "app/btp_demo.MyApplication"
   ]
 }

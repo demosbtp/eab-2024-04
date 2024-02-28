@@ -1,12 +1,14 @@
-using { eab2024 as my } from '../db/schema.cds';
+using { namespace as my } from '../db/schema.cds';
 
-@path: '/service/eab'
+@path: '/service/servicename'
 @requires: 'authenticated-user'
-service eabService {
+service servicenameService {
   @odata.draft.enabled
-  entity Guitars as projection on my.Guitars;
+  entity Guitar as projection on my.Guitar;
   @odata.draft.enabled
-  entity Customers as projection on my.Customers;
+  entity RockStar as projection on my.RockStar;
   @odata.draft.enabled
-  entity Orders as projection on my.Orders;
+  entity Category as projection on my.Category;
+  @odata.draft.enabled
+  entity Band as projection on my.Band;
 }

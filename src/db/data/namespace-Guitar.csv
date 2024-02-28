@@ -1,0 +1,6 @@
+ID;brand;model;color;price;inStock;owner_ID;category_ID
+19da6cee-47e0-4ae1-afd3-ac3c2e5716d1;Fender;Stratocaster;Sunburst;1500.00;true;19da6cee-47e0-4ae1-afd3-ac3c2e5716d1;19da6cee-47e0-4ae1-afd3-ac3c2e5716d1
+014a26af-a7eb-4dce-9ea0-7381b7cfe767;Gibson;Les Paul;Cherry Sunburst;2000.00;true;014a26af-a7eb-4dce-9ea0-7381b7cfe767;19da6cee-47e0-4ae1-afd3-ac3c2e5716d1
+af02721d-24b0-4df7-a1a9-5c807bec19fb;Taylor;814ce;Natural;3000.00;true;af02721d-24b0-4df7-a1a9-5c807bec19fb;014a26af-a7eb-4dce-9ea0-7381b7cfe767
+ca7451a3-e025-466c-b4e0-2aaca0a93c9e;Ibanez;RG550;Black;1000.00;true;ca7451a3-e025-466c-b4e0-2aaca0a93c9e;014a26af-a7eb-4dce-9ea0-7381b7cfe767
+765bed47-e40f-4f8c-a9f7-e4fc5880c830;Martin;D-28;Natural;3500.00;true;765bed47-e40f-4f8c-a9f7-e4fc5880c830;af02721d-24b0-4df7-a1a9-5c807bec19fb
