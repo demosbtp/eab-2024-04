@@ -1,0 +1,6 @@
+ID;name;instrument;age;experience;band_ID
+5b951966-9925-49fc-9209-60af327810ae;John Smith;Guitar;25;5 years;5b951966-9925-49fc-9209-60af327810ae
+44976d4b-9456-47bf-8479-35e2f0a2eea3;Lisa Johnson;Bass;28;7 years;5b951966-9925-49fc-9209-60af327810ae
+19f0af81-489a-4fca-a8dc-12a3a538b8d5;Michael Davis;Drums;30;10 years;5b951966-9925-49fc-9209-60af327810ae
+11952820-f1aa-4ce1-aba8-8ed34caf09d8;Sarah Thompson;Vocals;27;6 years;44976d4b-9456-47bf-8479-35e2f0a2eea3
+8b858280-2dfc-4259-9b47-317135cda4c9;David Wilson;Guitar;29;8 years;44976d4b-9456-47bf-8479-35e2f0a2eea3

@@ -1,0 +1,6 @@
+ID;brand;model;color;price;inStock
+5b951966-9925-49fc-9209-60af327810ae;Fender;Stratocaster;Sunburst;1500.00;true
+44976d4b-9456-47bf-8479-35e2f0a2eea3;Gibson;Les Paul;Cherry Red;2000.00;true
+19f0af81-489a-4fca-a8dc-12a3a538b8d5;Ibanez;RG550;Black;1200.00;false
+11952820-f1aa-4ce1-aba8-8ed34caf09d8;PRS;Custom 24;Tobacco Sunburst;2500.00;true
+8b858280-2dfc-4259-9b47-317135cda4c9;Gretsch;White Falcon;White;3000.00;true
