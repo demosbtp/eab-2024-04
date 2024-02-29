@@ -46,6 +46,9 @@ echo "# --------------------------------------------------------"
 echo "# create a PR for the changes"
 echo "# --------------------------------------------------------"
 cd eab-2024-04
+# update the package.json to start the app in preview mode
+sed -i '' 's/"start": "cds-serve"/"start": "CDS_FIORI_PREVIEW=true cds-serve"/g' src/package.json
+# add the changes to the repo
 git add .
 git commit -m "feat: add CAP app by Joule" 
 git push -u origin eab-demo2024-04
