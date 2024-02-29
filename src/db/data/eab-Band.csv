@@ -1,6 +1,0 @@
-ID;name;genre;yearFormed;website;category_ID
-4641842b-9c9c-454d-b855-b059b9fbf313;The Beatles;Rock;1960;www.thebeatles.com;4641842b-9c9c-454d-b855-b059b9fbf313
-6094b4ff-56d2-4e52-b25f-a4668abc52db;Queen;Rock;1970;www.queenonline.com;4641842b-9c9c-454d-b855-b059b9fbf313
-937e6cd5-9249-4330-9a7c-6e67f13153fd;Nirvana;Grunge;1987;www.nirvana.com;6094b4ff-56d2-4e52-b25f-a4668abc52db
-d1f0f22e-506c-4149-8831-88905c0f9a3e;Red Hot Chili Peppers;Rock;1983;www.redhotchilipeppers.com;6094b4ff-56d2-4e52-b25f-a4668abc52db
-5b16d863-8b35-49d1-b298-de6d901fa699;Coldplay;Alternative;1996;www.coldplay.com;937e6cd5-9249-4330-9a7c-6e67f13153fd
