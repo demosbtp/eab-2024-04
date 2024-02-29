@@ -66,8 +66,7 @@ jobs:
         cd src/
         cds add mta
         cds add xsuaa --for production
-        export CDS_FIORI_PREVIEW=true
-        npm install
+        npm ci
         cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
   
