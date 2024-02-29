@@ -1,5 +1,5 @@
 {
-  "name": "eab2024",
+  "name": "guitarshop",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
@@ -13,24 +13,18 @@
     "@sap/low-code-event-handler": "^1.2.4",
     "@sap/mdk-tools": "^1.3.1",
     "@sap/xsenv": ">=3.3.2 <3.3.3",
-    "@sap/xssec": "^3",
+    "@sap/xssec": "^3.6.1",
     "express": "^4",
     "hdb": "^0.19.7",
     "passport": "^0.7.0"
   },
   "devDependencies": {
     "@cap-js/sqlite": "^1",
-    "@sap/cds-dk": "^7",
-    "@sap/ux-specification": "^1.120.4",
-    "rimraf": "^3.0.2"
+    "@sap/ux-specification": "^1.108.23"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch-eab2024.MyApplication": "cds watch --open eab2024.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false",
-    "watch-project1": "cds watch --open project1/webapp/index.html?sap-ui-xx-viewCache=false",
-    "undeploy": "cf undeploy eab2024 --delete-services --delete-service-keys --delete-service-brokers",
-    "build": "rimraf resources mta_archives && mbt build --mtar archive",
-    "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
+    "watch-guitarshop.MyApplication": "cds watch --open guitarshop.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -40,7 +34,9 @@
       "app-service": {
         "impl": "@sap/low-code-event-handler"
       },
-      "auth": "mocked"
+      "auth": {
+        "kind": "xsuaa"
+      }
     },
     "features": {
       "fetch_csrf": true,
@@ -49,7 +45,6 @@
   },
   "lcap": true,
   "sapux": [
-    "app/eab2024.MyApplication",
-    "app/project1"
+    "app/guitarshop.MyApplication"
   ]
 }

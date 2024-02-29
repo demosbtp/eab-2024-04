@@ -1,4 +1,2 @@
 
-using from './eab2024.MyApplication/annotations';
-
-using from './project1/annotations';
+using from './guitarshop.MyApplication/annotations';

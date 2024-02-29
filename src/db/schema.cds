@@ -1,31 +1,29 @@
-namespace eab;
+namespace guitars;
 
-entity Guitar {
+entity Guitars {
   key ID: UUID;
   brand: String(50);
   model: String(50);
   color: String(20);
   price: Decimal(10,2);
   inStock: Boolean;
-  band: Association to Band;
-  category: Association to Category;
 }
 
-entity Band {
+entity Bands {
   key ID: UUID;
-  name: String(100) @assert.unique @mandatory;
+  name: String(100);
   genre: String(50);
   yearFormed: Integer;
-  website: String(200);
-  guitars: Association to many Guitar on guitars.band = $self;
-  category: Association to Category;
+  country: String(50);
+  members: Composition of many BandMembers on members.band = $self;
 }
 
-entity Category {
+entity BandMembers {
   key ID: UUID;
-  name: String(50) @assert.unique @mandatory;
-  description: String(100);
-  guitars: Association to many Guitar on guitars.category = $self;
-  bands: Association to many Band on bands.category = $self;
+  name: String(100);
+  instrument: String(50);
+  age: Integer;
+  experience: String(100);
+  band: Association to Bands;
 }
 
