@@ -57,8 +57,7 @@ jobs:
     - name: Install Tools
       id: install_tools
       run: |
-        npm install --global @sap/cds-dk
-        cds --version
+        npm install --g @sap/cds-dk
         npm install -g mbt
 
     - name: Build CAP app
@@ -66,9 +65,7 @@ jobs:
       run: |
         cd src/
         cds add mta
-        cds add xsuaa
-        cds add approuter
-        npm install
+        npm ci
         cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
   
