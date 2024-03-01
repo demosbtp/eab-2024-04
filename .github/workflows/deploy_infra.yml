@@ -64,8 +64,10 @@ jobs:
       id: build_cap_app
       run: |
         cd src/
+        echo "OUTPUT OF PACKAGE.JSON FILE BEFORE cds add mta:"
+        cat package.json
         cds add mta
-        # cds add xsuaa --for production
+        echo "OUTPUT OF PACKAGE.JSON FILE AFTER  cds add mta:"
         npm install
         cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
