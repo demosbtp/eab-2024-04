@@ -92,8 +92,9 @@ module "cloudfoundry_environment" {
   cf_org_name   = var.cf_org_name
 }
 
-
+# ------------------------------------------------------------------------------------------------------
 # Assign users to Role Collections
+# ------------------------------------------------------------------------------------------------------
 resource "btp_subaccount_role_collection_assignment" "role_mapping" {
   for_each             = { for entry in local.role_mapping_admins : "${entry.user_name}.${entry.role_name}" => entry }
   subaccount_id        = btp_subaccount.eab.id
