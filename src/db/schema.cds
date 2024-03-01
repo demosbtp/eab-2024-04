@@ -1,31 +1,29 @@
-namespace guitars;
+namespace food;
 
-entity Guitar {
-  key ID: UUID;
-  brand: String(50);
-  model: String(50);
-  color: String(20);
-  price: Decimal(10,2);
-  inStock: Boolean;
-  band: Association to Band;
-  category: Association to Category;
-}
-
-entity Band {
+entity Dishes {
   key ID: UUID;
   name: String(100) @assert.unique @mandatory;
-  genre: String(50);
-  location: String(100);
-  contactEmail: String(100);
-  guitars: Association to many Guitar on guitars.band = $self;
-  category: Association to Category;
+  description: String(500);
+  price: Decimal(8,2);
+  ingredients: String(500);
+  spicinessLevel: Integer;
+  isVegetarian: Boolean;
+  category: Association to Categories;
+  reviews: Association to many Reviews on reviews.dish = $self;
 }
 
-entity Category {
+entity Categories {
   key ID: UUID;
   name: String(50) @assert.unique @mandatory;
   description: String(100);
-  guitars: Association to many Guitar on guitars.category = $self;
-  bands: Association to many Band on bands.category = $self;
+  dishes: Association to many Dishes on dishes.category = $self;
+}
+
+entity Reviews {
+  key ID: UUID;
+  title: String(100) @assert.unique @mandatory;
+  description: String(500);
+  rating: Integer;
+  dish: Association to Dishes;
 }
 

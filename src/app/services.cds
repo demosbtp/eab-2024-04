@@ -1,2 +1,2 @@
 
-using from './myguitarshop.MyApplication/annotations';
+using from './foodshop.MyApplication/annotations';

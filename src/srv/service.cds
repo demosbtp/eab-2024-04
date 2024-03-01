@@ -1,12 +1,12 @@
-using { guitars as my } from '../db/schema.cds';
+using { food as my } from '../db/schema.cds';
 
-@path: '/service/guitar'
+@path: '/service/food'
 @requires: 'authenticated-user'
-service guitarService {
+service foodService {
   @odata.draft.enabled
-  entity Guitar as projection on my.Guitar;
+  entity Dishes as projection on my.Dishes;
   @odata.draft.enabled
-  entity Band as projection on my.Band;
+  entity Categories as projection on my.Categories;
   @odata.draft.enabled
-  entity Category as projection on my.Category;
+  entity Reviews as projection on my.Reviews;
 }

@@ -1,5 +1,5 @@
 {
-  "name": "myguitarshop",
+  "name": "foodshop",
   "version": "1.0.0",
   "description": "A simple CAP project.",
   "repository": "<Add your repository here>",
@@ -28,7 +28,7 @@
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
-    "watch-myguitarshop.MyApplication": "cds watch --open myguitarshop.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false"
+    "watch-foodshop.MyApplication": "cds watch --open foodshop.MyApplication/webapp/index.html?sap-ui-xx-viewCache=false"
   },
   "cds": {
     "requires": {
@@ -47,6 +47,6 @@
   },
   "lcap": true,
   "sapux": [
-    "app/myguitarshop.MyApplication"
+    "app/foodshop.MyApplication"
   ]
 }

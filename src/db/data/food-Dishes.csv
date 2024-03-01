@@ -1,0 +1,6 @@
+ID;name;description;price;ingredients;spicinessLevel;isVegetarian;category_ID
+fbbed960-56c1-4e1a-91a3-6583cea31c6b;Pastéis de Bacalhau;Deep-fried codfish fritters;8.50;Codfish, potatoes, eggs, parsley;1;true;fbbed960-56c1-4e1a-91a3-6583cea31c6b
+293a00f5-046d-43fb-a45a-c1efe1f88a3b;Francesinha;Famous Portuguese sandwich with meat and cheese;12.75;Beef, ham, sausage, cheese, bread, beer sauce;2;false;293a00f5-046d-43fb-a45a-c1efe1f88a3b
+2bb01333-97d1-47ad-a8cd-0447f517706a;Arroz de Pato;Duck rice;16.90;Duck, rice, chorizo, bacon, olives;1;false;293a00f5-046d-43fb-a45a-c1efe1f88a3b
+da2604e5-476c-4b91-869d-fb1eed2f8e0c;Bacalhau à Brás;Shredded codfish with potatoes and eggs;14.50;Codfish, potatoes, eggs, onions, olives;1;true;293a00f5-046d-43fb-a45a-c1efe1f88a3b
+06036965-9c76-4534-9d29-71c1ac720ce9;Pastel de Nata;Famous Portuguese custard tart;2.50;Puff pastry, egg custard, cinnamon, sugar;1;true;2bb01333-97d1-47ad-a8cd-0447f517706a

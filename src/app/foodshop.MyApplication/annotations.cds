@@ -1,0 +1,1 @@
+using foodService as service from '../../srv/service';

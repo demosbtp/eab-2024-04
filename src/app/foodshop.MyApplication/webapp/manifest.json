@@ -1,7 +1,7 @@
 {
   "_version": "1.48.0",
   "sap.app": {
-    "id": "myguitarshop.MyApplication",
+    "id": "foodshop.MyApplication",
     "type": "application",
     "i18n": "i18n/i18n.properties",
     "applicationVersion": {
@@ -13,11 +13,11 @@
     "sourceTemplate": {
       "id": "@sap/generator-fiori:lrop",
       "version": "1.12.4",
-      "toolsId": "5c9da6e1-b09e-4568-88de-07290176cc34"
+      "toolsId": "4076ed74-2a29-4adb-9c46-32d2e355b86e"
     },
     "dataSources": {
       "mainService": {
-        "uri": "/service/guitar/",
+        "uri": "/service/food/",
         "type": "OData",
         "settings": {
           "annotations": [],
@@ -27,8 +27,8 @@
     },
     "crossNavigation": {
       "inbounds": {
-        "myguitarshopMyApplication-display": {
-          "semanticObject": "myguitarshopMyApplication",
+        "foodshopMyApplication-display": {
+          "semanticObject": "foodshopMyApplication",
           "action": "display",
           "title": "{{flpTitle}}",
           "signature": {
@@ -74,7 +74,7 @@
       "i18n": {
         "type": "sap.ui.model.resource.ResourceModel",
         "settings": {
-          "bundleName": "myguitarshop.MyApplication.i18n.i18n"
+          "bundleName": "foodshop.MyApplication.i18n.i18n"
         }
       },
       "": {
@@ -100,42 +100,42 @@
       "routes": [
         {
           "pattern": ":?query:",
-          "name": "GuitarList",
-          "target": "GuitarList"
+          "name": "DishesList",
+          "target": "DishesList"
         },
         {
-          "pattern": "Guitar({key}):?query:",
-          "name": "GuitarObjectPage",
-          "target": "GuitarObjectPage"
+          "pattern": "Dishes({key}):?query:",
+          "name": "DishesObjectPage",
+          "target": "DishesObjectPage"
         }
       ],
       "targets": {
-        "GuitarList": {
+        "DishesList": {
           "type": "Component",
-          "id": "GuitarList",
+          "id": "DishesList",
           "name": "sap.fe.templates.ListReport",
           "options": {
             "settings": {
-              "contextPath": "/Guitar",
+              "contextPath": "/Dishes",
               "variantManagement": "Page",
               "navigation": {
-                "Guitar": {
+                "Dishes": {
                   "detail": {
-                    "route": "GuitarObjectPage"
+                    "route": "DishesObjectPage"
                   }
                 }
               }
             }
           }
         },
-        "GuitarObjectPage": {
+        "DishesObjectPage": {
           "type": "Component",
-          "id": "GuitarObjectPage",
+          "id": "DishesObjectPage",
           "name": "sap.fe.templates.ObjectPage",
           "options": {
             "settings": {
               "editableHeaderContent": false,
-              "contextPath": "/Guitar"
+              "contextPath": "/Dishes"
             }
           }
         }

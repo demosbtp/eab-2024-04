@@ -1,37 +1,13 @@
-using { guitars } from '../srv/service.cds';
+using { food } from '../srv/service.cds';
 
-annotate guitars.Guitar with @UI.HeaderInfo: { TypeName: 'Guitar', TypeNamePlural: 'Guitars' };
-annotate guitars.Guitar with {
-  band @Common.ValueList: {
-    CollectionPath: 'Band',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: band_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'name'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'genre'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'location'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'contactEmail'
-      },
-    ],
-  }
+annotate food.Dishes with @UI.HeaderInfo: { TypeName: 'Dish', TypeNamePlural: 'Dishes', Title: { Value: name } };
+annotate food.Dishes with {
+  ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate guitars.Guitar with {
+annotate food.Dishes with @UI.Identification: [{ Value: name }];
+annotate food.Dishes with {
   category @Common.ValueList: {
-    CollectionPath: 'Category',
+    CollectionPath: 'Categories',
     Parameters    : [
       {
         $Type            : 'Common.ValueListParameterInOut',
@@ -49,172 +25,180 @@ annotate guitars.Guitar with {
     ],
   }
 };
-annotate guitars.Guitar with @UI.DataPoint #brand: {
-  Value: brand,
-  Title: 'Brand',
-};
-annotate guitars.Guitar with @UI.DataPoint #model: {
-  Value: model,
-  Title: 'Model',
-};
-annotate guitars.Guitar with @UI.DataPoint #price: {
+annotate food.Dishes with @UI.DataPoint #price: {
   Value: price,
   Title: 'Price',
 };
-annotate guitars.Guitar with {
-  brand @title: 'Brand';
-  model @title: 'Model';
-  color @title: 'Color';
+annotate food.Dishes with {
+  name @title: 'Name';
+  description @title: 'Description';
   price @title: 'Price';
-  inStock @title: 'In Stock'
+  ingredients @title: 'Ingredients';
+  spicinessLevel @title: 'Spiciness Level';
+  isVegetarian @title: 'Vegetarian'
 };
 
-annotate guitars.Guitar with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: brand },
-    { $Type: 'UI.DataField', Value: model },
-    { $Type: 'UI.DataField', Value: color },
+annotate food.Dishes with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: name },
+    { $Type: 'UI.DataField', Value: description },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: inStock },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID },
+    { $Type: 'UI.DataField', Value: ingredients },
+    { $Type: 'UI.DataField', Value: spicinessLevel },
+    { $Type: 'UI.DataField', Value: isVegetarian },
     { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
 ];
 
-annotate guitars.Guitar with @UI.FieldGroup #Main: {
+annotate food.Dishes with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: brand },
-    { $Type: 'UI.DataField', Value: model },
-    { $Type: 'UI.DataField', Value: color },
+    { $Type: 'UI.DataField', Value: name },
+    { $Type: 'UI.DataField', Value: description },
     { $Type: 'UI.DataField', Value: price },
-    { $Type: 'UI.DataField', Value: inStock },
-    { $Type: 'UI.DataField', Label: 'Band', Value: band_ID },
+    { $Type: 'UI.DataField', Value: ingredients },
+    { $Type: 'UI.DataField', Value: spicinessLevel },
+    { $Type: 'UI.DataField', Value: isVegetarian },
     { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
   ]
 };
 
-annotate guitars.Guitar with {
-  band @Common.Text: { $value: band.name, ![@UI.TextArrangement]: #TextOnly };
+annotate food.Dishes with {
   category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly }
 };
 
-annotate guitars.Guitar with {
-  band @Common.Label: 'Band';
-  category @Common.Label: 'Category'
+annotate food.Dishes with {
+  category @Common.Label: 'Category';
+  reviews @Common.Label: 'Reviews'
 };
 
-annotate guitars.Guitar with @UI.HeaderFacets: [
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#brand' },
- { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#model' },
+annotate food.Dishes with @UI.HeaderFacets: [
  { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#price' }
 ];
 
-annotate guitars.Guitar with @UI.Facets: [
+annotate food.Dishes with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate guitars.Guitar with @UI.SelectionFields: [
-  band_ID,
+annotate food.Dishes with @UI.SelectionFields: [
   category_ID
 ];
 
-annotate guitars.Band with @UI.HeaderInfo: { TypeName: 'Band', TypeNamePlural: 'Bands', Title: { Value: name } };
-annotate guitars.Band with {
+annotate food.Categories with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
+annotate food.Categories with {
   ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
 };
-annotate guitars.Band with @UI.Identification: [{ Value: name }];
-annotate guitars.Band with {
-  category @Common.ValueList: {
-    CollectionPath: 'Category',
-    Parameters    : [
-      {
-        $Type            : 'Common.ValueListParameterInOut',
-        LocalDataProperty: category_ID, 
-        ValueListProperty: 'ID'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'name'
-      },
-      {
-        $Type            : 'Common.ValueListParameterDisplayOnly',
-        ValueListProperty: 'description'
-      },
-    ],
-  }
-};
-annotate guitars.Band with {
-  name @title: 'Name';
-  genre @title: 'Genre';
-  location @title: 'Location';
-  contactEmail @title: 'Contact Email'
-};
-
-annotate guitars.Band with @UI.LineItem: [
-    { $Type: 'UI.DataField', Value: name },
-    { $Type: 'UI.DataField', Value: genre },
-    { $Type: 'UI.DataField', Value: location },
-    { $Type: 'UI.DataField', Value: contactEmail },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
-];
-
-annotate guitars.Band with @UI.FieldGroup #Main: {
-  $Type: 'UI.FieldGroupType', Data: [
-    { $Type: 'UI.DataField', Value: name },
-    { $Type: 'UI.DataField', Value: genre },
-    { $Type: 'UI.DataField', Value: location },
-    { $Type: 'UI.DataField', Value: contactEmail },
-    { $Type: 'UI.DataField', Label: 'Category', Value: category_ID }
-  ]
-};
-
-annotate guitars.Band with {
-  category @Common.Text: { $value: category.name, ![@UI.TextArrangement]: #TextOnly }
-};
-
-annotate guitars.Band with {
-  guitars @Common.Label: 'Guitars';
-  category @Common.Label: 'Category'
-};
-
-annotate guitars.Band with @UI.Facets: [
-  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
-];
-
-annotate guitars.Band with @UI.SelectionFields: [
-  category_ID
-];
-
-annotate guitars.Category with @UI.HeaderInfo: { TypeName: 'Category', TypeNamePlural: 'Categories', Title: { Value: name } };
-annotate guitars.Category with {
-  ID @UI.Hidden @Common.Text: { $value: name, ![@UI.TextArrangement]: #TextOnly }
-};
-annotate guitars.Category with @UI.Identification: [{ Value: name }];
-annotate guitars.Category with {
+annotate food.Categories with @UI.Identification: [{ Value: name }];
+annotate food.Categories with {
   name @title: 'Name';
   description @title: 'Description'
 };
 
-annotate guitars.Category with @UI.LineItem: [
+annotate food.Categories with @UI.LineItem: [
     { $Type: 'UI.DataField', Value: name },
     { $Type: 'UI.DataField', Value: description }
 ];
 
-annotate guitars.Category with @UI.FieldGroup #Main: {
+annotate food.Categories with @UI.FieldGroup #Main: {
   $Type: 'UI.FieldGroupType', Data: [
     { $Type: 'UI.DataField', Value: name },
     { $Type: 'UI.DataField', Value: description }
   ]
 };
 
-annotate guitars.Category with {
-  guitars @Common.Label: 'Guitars';
-  bands @Common.Label: 'Bands'
+annotate food.Categories with {
+  dishes @Common.Label: 'Dishes'
 };
 
-annotate guitars.Category with @UI.Facets: [
+annotate food.Categories with @UI.Facets: [
   { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
 ];
 
-annotate guitars.Category with @UI.SelectionFields: [
+annotate food.Categories with @UI.SelectionFields: [
   name
+];
+
+annotate food.Reviews with @UI.HeaderInfo: { TypeName: 'Review', TypeNamePlural: 'Reviews', Title: { Value: title } };
+annotate food.Reviews with {
+  ID @UI.Hidden @Common.Text: { $value: title, ![@UI.TextArrangement]: #TextOnly }
+};
+annotate food.Reviews with @UI.Identification: [{ Value: title }];
+annotate food.Reviews with {
+  dish @Common.ValueList: {
+    CollectionPath: 'Dishes',
+    Parameters    : [
+      {
+        $Type            : 'Common.ValueListParameterInOut',
+        LocalDataProperty: dish_ID, 
+        ValueListProperty: 'ID'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'name'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'description'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'price'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'ingredients'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'spicinessLevel'
+      },
+      {
+        $Type            : 'Common.ValueListParameterDisplayOnly',
+        ValueListProperty: 'isVegetarian'
+      },
+    ],
+  }
+};
+annotate food.Reviews with @UI.DataPoint #rating: {
+  Value: rating,
+  Title: 'Rating',
+};
+annotate food.Reviews with {
+  title @title: 'Title';
+  description @title: 'Description';
+  rating @title: 'Rating'
+};
+
+annotate food.Reviews with @UI.LineItem: [
+    { $Type: 'UI.DataField', Value: title },
+    { $Type: 'UI.DataField', Value: description },
+    { $Type: 'UI.DataField', Value: rating },
+    { $Type: 'UI.DataField', Label: 'Dish', Value: dish_ID }
+];
+
+annotate food.Reviews with @UI.FieldGroup #Main: {
+  $Type: 'UI.FieldGroupType', Data: [
+    { $Type: 'UI.DataField', Value: title },
+    { $Type: 'UI.DataField', Value: description },
+    { $Type: 'UI.DataField', Value: rating },
+    { $Type: 'UI.DataField', Label: 'Dish', Value: dish_ID }
+  ]
+};
+
+annotate food.Reviews with {
+  dish @Common.Text: { $value: dish.name, ![@UI.TextArrangement]: #TextOnly }
+};
+
+annotate food.Reviews with {
+  dish @Common.Label: 'Dish'
+};
+
+annotate food.Reviews with @UI.HeaderFacets: [
+ { $Type : 'UI.ReferenceFacet', Target : '@UI.DataPoint#rating' }
+];
+
+annotate food.Reviews with @UI.Facets: [
+  { $Type: 'UI.ReferenceFacet', ID: 'Main', Label: 'General Information', Target: '@UI.FieldGroup#Main' }
+];
+
+annotate food.Reviews with @UI.SelectionFields: [
+  dish_ID
 ];
 
