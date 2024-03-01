@@ -3,6 +3,14 @@
 # --------------------------------------------------------------------------------------------
 # The script will remove the old code from the eab-2024-04 repo and copy the new code 
 # from the project $1 (the first argument) to the eab-2024-04 repo
+
+# Script should 
+if [ -z "$1" ]; then
+  echo "Please provied the folder name for the app as a parameter! Exiting."
+  exit 1
+fi
+
+BRANCHNAME=generated-app
 echo "# --------------------------------------------------------"
 echo "# Delete existing repo"
 echo "# --------------------------------------------------------"
@@ -14,17 +22,12 @@ echo "# Clone repo https://github.com/demosbtp/eab-2024-04.git"
 echo "# --------------------------------------------------------"
 git clone https://github.com/demosbtp/eab-2024-04.git
 echo "- cloned repo"
-
-echo "# --------------------------------------------------------"
-echo "# Create new branch eab-demo2024-04 and checkout"
-echo "# --------------------------------------------------------"
-cd eab-2024-04
-git checkout -b eab-demo2024-04
-cd ..
 echo ""
 echo "# --------------------------------------------------------"
 echo "# Cleaning up eab-2024-04 repo"
 echo "# --------------------------------------------------------"
+cd eab-2024-04
+cd ..
 rm -rf eab-2024-04/src
 mkdir -p eab-2024-04/src/app
 mkdir -p eab-2024-04/src/db
@@ -45,14 +48,23 @@ echo ""
 echo "# --------------------------------------------------------"
 echo "# create a PR for the changes"
 echo "# --------------------------------------------------------"
-cd eab-2024-04
+cd eab-2024-04/src
 # update the package.json to start the app in preview mode
-sed -i '' 's/"start": "cds-serve"/"start": "CDS_FIORI_PREVIEW=true cds-serve"/g' src/package.json
+pwd
+sed -i 's/"start": "cds-serve"/"start": "CDS_FIORI_PREVIEW=true cds-serve"/g' package.json
 # add the changes to the repo
 cd src/
 npm install
 cd ..
+echo "# --------------------------------------------------------"
+echo "# Create new branch ${BRANCHNAME}, commit and push the new code"
+echo "# --------------------------------------------------------"
+git checkout -b $BRANCHNAME
 git add .
 git commit -m "feat: add CAP app by Joule" 
-git push -u origin eab-demo2024-04
+git push -u origin $BRANCHNAME
+echo "- commited and pushed code to ${BRANCHNAME}"
+echo "# --------------------------------------------------------"
+echo "# Create pull request"
+echo "# --------------------------------------------------------"
 gh pr create -B main -f -l enhancement
