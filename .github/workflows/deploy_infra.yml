@@ -68,6 +68,7 @@ jobs:
         cat package.json
         cds add mta
         echo "OUTPUT OF PACKAGE.JSON FILE AFTER  cds add mta:"
+        cat package.json
         npm install
         cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
