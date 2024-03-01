@@ -46,14 +46,12 @@ cp -f  $1/.gitignore eab-2024-04/src
 echo "- copied code from project $1 to eab-2024-04 repo"
 echo ""
 echo "# --------------------------------------------------------"
-echo "# create a PR for the changes"
+echo "# Adapt package.json and run npm install"
 echo "# --------------------------------------------------------"
 cd eab-2024-04/src
 # update the package.json to start the app in preview mode
-pwd
 sed -i 's/"start": "cds-serve"/"start": "CDS_FIORI_PREVIEW=true cds-serve"/g' package.json
 # add the changes to the repo
-cd src/
 npm install
 cd ..
 echo "# --------------------------------------------------------"
