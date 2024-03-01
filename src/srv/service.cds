@@ -1,4 +1,4 @@
-using { eab as my } from '../db/schema.cds';
+using { guitars as my } from '../db/schema.cds';
 
 @path: '/service/guitar'
 @requires: 'authenticated-user'
