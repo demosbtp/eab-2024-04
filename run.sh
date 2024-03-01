@@ -50,7 +50,8 @@ echo "# Adapt package.json and run npm install"
 echo "# --------------------------------------------------------"
 cd eab-2024-04/src
 # update the package.json to start the app in preview mode
-sed -i 's/"start": "cds-serve"/"start": "CDS_FIORI_PREVIEW=true cds-serve"/g' package.json
+contents="$(jq '.cds.requires.auth = "mocked"' package.json)" && echo -E "${contents}" > package.json
+contents="$(jq '.cds.features.fiori_preview = true' package.json)" && echo -E "${contents}" > package.json
 # add the changes to the repo
 npm install
 cd ..
