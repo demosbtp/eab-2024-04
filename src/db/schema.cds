@@ -1,4 +1,4 @@
-namespace eab;
+namespace guitars;
 
 entity Guitar {
   key ID: UUID;
@@ -15,8 +15,8 @@ entity Band {
   key ID: UUID;
   name: String(100) @assert.unique @mandatory;
   genre: String(50);
-  yearFormed: Integer;
-  website: String(200);
+  location: String(100);
+  contactEmail: String(100);
   guitars: Association to many Guitar on guitars.band = $self;
   category: Association to Category;
 }
