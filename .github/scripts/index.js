@@ -45,7 +45,9 @@ async function createTfvarsEntitlements() {
             else
             {
                 console.log(`Skipping resource: ${resource.name} as it is not a managed-service`);
-                NumberOfEntries = NumberOfEntries - 1;
+                // reduce the NumberOfEntries as we are not adding this resource
+                NumberOfEntries--;
+                
             }
         }
 
