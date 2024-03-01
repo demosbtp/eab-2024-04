@@ -24,7 +24,7 @@
     "@sap/ux-specification": "^1.108.23"
   },
   "scripts": {
-    "start": "CDS_FIORI_PREVIEW=true cds-serve",
+    "start": "cds-serve",
     "start-local": "npm run generate-entry-point && npm run cds-watch",
     "generate-entry-point": "dev-cap-tools gen-entrypoint",
     "cds-watch": "cds watch --open",
@@ -38,17 +38,11 @@
       "app-service": {
         "impl": "@sap/low-code-event-handler"
       },
-      "auth": {
-        "[development]": {
-          "kind": "dummy"
-        },
-        "[production]": {
-          "kind": "xsuaa"
-        }
-      }
+      "auth": "mocked"
     },
     "features": {
-      "fetch_csrf": true
+      "fetch_csrf": true,
+      "fiori_preview": true
     }
   },
   "lcap": true,
