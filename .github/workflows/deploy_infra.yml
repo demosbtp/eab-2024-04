@@ -65,7 +65,7 @@ jobs:
       run: |
         cd src/
         cds add mta
-        cds add xsuaa --for production
+        # cds add xsuaa --for production
         npm install
         cds build
         mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
