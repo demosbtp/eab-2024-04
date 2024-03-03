@@ -1,5 +1,5 @@
 _schema-version: '3.1'
-ID: guitarshop
+ID: foodshop
 version: 1.0.0
 description: A simple CAP project.
 parameters:
@@ -26,9 +26,9 @@ build-parameters:
       commands:
         - npm install
 modules:
-  - name: guitarshop-guitarshop.MyApplication
+  - name: foodshop-foodshop.Food
     type: html5
-    path: app/guitarshop.MyApplication
+    path: app/foodshop.Food
     build-parameters:
       builder: custom
       commands:
@@ -38,13 +38,11 @@ modules:
           --include-task=generateManifestBundle
           --include-task=generateCachebusterInfo
         - mkdir dist-zip
-        - >-
-          bash -c "cd dist && npx bestzip
-          ../dist-zip/guitarshopMyApplication.zip *"
-      _artifactName: guitarshopMyApplication.zip
+        - bash -c "cd dist && npx bestzip ../dist-zip/foodshopFood.zip *"
+      _artifactName: foodshopFood.zip
       supported-platforms: []
       build-result: dist-zip
-  - name: guitarshop-db-deployer
+  - name: foodshop-db-deployer
     type: hdb
     path: gen/db
     parameters:
@@ -55,9 +53,9 @@ modules:
         - node_modules
         - package-lock.json
     requires:
-      - name: guitarshop-service-uaa
-      - name: guitarshop-service-db
-  - name: guitarshop-srv
+      - name: foodshop-service-uaa
+      - name: foodshop-service-db
+  - name: foodshop-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -72,13 +70,13 @@ modules:
         - node_modules
         - package-lock.json
     requires:
-      - name: guitarshop-service-uaa
-      - name: guitarshop-service-db
-      - name: guitarshop-service-destination
-      - name: guitarshop-service-metadata
-      - name: guitarshop-service-connectivity
-      - name: guitarshop-service-logs
-  - name: guitarshop-aux-destinations
+      - name: foodshop-service-uaa
+      - name: foodshop-service-db
+      - name: foodshop-service-destination
+      - name: foodshop-service-metadata
+      - name: foodshop-service-connectivity
+      - name: foodshop-service-logs
+  - name: foodshop-aux-destinations
     type: com.sap.application.content
     parameters:
       content:
@@ -86,26 +84,26 @@ modules:
           existing_destinations_policy: update
           destinations:
             - Authentication: OAuth2UserTokenExchange
-              Name: guitarshop-service-uaa
-              ServiceInstanceName: guitarshop-uaa
-              ServiceKeyName: guitarshop-uaa-key
-              sap.cloud.service: lcap.guitarshop
+              Name: foodshop-service-uaa
+              ServiceInstanceName: foodshop-uaa
+              ServiceKeyName: foodshop-uaa-key
+              sap.cloud.service: lcap.foodshop
             - Authentication: OAuth2UserTokenExchange
-              Name: guitarshop-app-srv
-              TokenServiceInstanceName: guitarshop-uaa
-              TokenServiceKeyName: guitarshop-uaa-key
+              Name: foodshop-app-srv
+              TokenServiceInstanceName: foodshop-uaa
+              TokenServiceKeyName: foodshop-uaa-key
               URL: ~{srv-api/srv-url}
-              sap.cloud.service: lcap.guitarshop
-            - Name: guitarshop-service-html5-apps-repo-host
-              ServiceInstanceName: guitarshop-html5-apps-repo-host
-              ServiceKeyName: guitarshop-html5-apps-repo-host-key
-              sap.cloud.service: lcap.guitarshop
+              sap.cloud.service: lcap.foodshop
+            - Name: foodshop-service-html5-apps-repo-host
+              ServiceInstanceName: foodshop-html5-apps-repo-host
+              ServiceKeyName: foodshop-html5-apps-repo-host-key
+              sap.cloud.service: lcap.foodshop
             - Authentication: OAuth2UserTokenExchange
-              Name: guitarshop-guitarService
-              TokenServiceInstanceName: guitarshop-uaa
-              TokenServiceKeyName: guitarshop-uaa-key
-              URL: ~{srv-api/srv-url}/service/guitar
-              sap.cloud.service: lcap.guitarshop
+              Name: foodshop-foodsrvService
+              TokenServiceInstanceName: foodshop-uaa
+              TokenServiceKeyName: foodshop-uaa-key
+              URL: ~{srv-api/srv-url}/service/foodsrv
+              sap.cloud.service: lcap.foodshop
               sap.applicationdevelopment.actions.enabled: false
               sap.build.usage: CAP
               sap.processautomation.enabled: false
@@ -116,19 +114,19 @@ modules:
     build-parameters:
       no-source: true
     requires:
-      - name: guitarshop-service-uaa
+      - name: foodshop-service-uaa
         parameters:
           service-key:
-            name: guitarshop-uaa-key
+            name: foodshop-uaa-key
       - name: srv-api
-      - name: guitarshop-service-html5-apps-repo-host
+      - name: foodshop-service-html5-apps-repo-host
         parameters:
           service-key:
-            name: guitarshop-html5-apps-repo-host-key
-      - name: guitarshop-service-destination
+            name: foodshop-html5-apps-repo-host-key
+      - name: foodshop-service-destination
         parameters:
           content-target: true
-  - name: guitarshop-launchpad
+  - name: foodshop-launchpad
     type: html5
     path: build/launchpad
     build-parameters:
@@ -144,76 +142,76 @@ modules:
       _artifactName: launchpad.zip
       supported-platforms: []
       build-result: ../../build/dist
-  - name: guitarshop-aux-ui-deployer
+  - name: foodshop-aux-ui-deployer
     type: com.sap.application.content
     path: build/ui-deployer
     build-parameters:
       build-result: resources
       requires:
-        - name: guitarshop-guitarshop.MyApplication
+        - name: foodshop-foodshop.Food
           artifacts:
-            - guitarshopMyApplication.zip
+            - foodshopFood.zip
           target-path: resources
-        - name: guitarshop-launchpad
+        - name: foodshop-launchpad
           artifacts:
             - launchpad.zip
           target-path: resources
     requires:
-      - name: guitarshop-service-html5-apps-repo-host
+      - name: foodshop-service-html5-apps-repo-host
         parameters:
           content-target: true
 resources:
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-uaa
+    name: foodshop-service-uaa
     parameters:
       service: xsuaa
       service-plan: application
-      service-name: guitarshop-uaa
+      service-name: foodshop-uaa
       path: xs-security.json
       config:
         oauth2-configuration:
           redirect-uris:
             - https://*.${default-domain}/login/*
-        xsappname: guitarshop-${space}
+        xsappname: foodshop-${space}
         role-collections: []
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-db
+    name: foodshop-service-db
     parameters:
       service: hana
       service-plan: hdi-shared
-      service-name: guitarshop-db
+      service-name: foodshop-db
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-destination
+    name: foodshop-service-destination
     parameters:
       service: destination
       service-plan: lite
-      service-name: guitarshop-destination
+      service-name: foodshop-destination
       config:
         HTML5Runtime_enabled: true
         version: 1.0.0
   - type: org.cloudfoundry.user-provided-service
-    name: guitarshop-service-metadata
+    name: foodshop-service-metadata
     parameters:
       service: metadata
       service-plan: standard
-      service-name: guitarshop-metadata
+      service-name: foodshop-metadata
       config:
         default-domain: ${default-domain}
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-connectivity
+    name: foodshop-service-connectivity
     parameters:
       service: connectivity
       service-plan: lite
-      service-name: guitarshop-connectivity
+      service-name: foodshop-connectivity
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-logs
+    name: foodshop-service-logs
     parameters:
       service: application-logs
       service-plan: lite
-      service-name: guitarshop-logs
+      service-name: foodshop-logs
   - type: org.cloudfoundry.managed-service
-    name: guitarshop-service-html5-apps-repo-host
+    name: foodshop-service-html5-apps-repo-host
     parameters:
       service: html5-apps-repo
       service-plan: app-host
-      service-name: guitarshop-html5-apps-repo-host
+      service-name: foodshop-html5-apps-repo-host
