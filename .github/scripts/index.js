@@ -26,18 +26,26 @@ async function createTfvarsEntitlements() {
         // Loop over the resources in yamlData.resources
         for (const resource of yamlData.resources) {
 
-            tfvarsEntitlements += `  { \n`;
-            tfvarsEntitlements += `     name =  "${resource.parameters.service}" \n`;
-            tfvarsEntitlements += `     plan =  "${resource.parameters['service-plan']}" \n`;
-            tfvarsEntitlements += `     amount =  null \n`;
+            // only add managed-service resources (and not user-provided-service resources)
+            if (resource.type == 'org.cloudfoundry.managed-service') {
 
-            if (counter === NumberOfEntries - 1) {
-                tfvarsEntitlements += `  } \n`;
+                tfvarsEntitlements += `  { \n`;
+                tfvarsEntitlements += `     name =  "${resource.parameters.service}" \n`;
+                tfvarsEntitlements += `     plan =  "${resource.parameters['service-plan']}" \n`;
+                tfvarsEntitlements += `     amount =  null \n`;
+
+                if (counter === NumberOfEntries - 1) {
+                    tfvarsEntitlements += `  } \n`;
+                }
+                else {
+                    tfvarsEntitlements += `  }, \n`;
+                }
+                counter++;
             }
-            else {
-                tfvarsEntitlements += `  }, \n`;
+            else
+            {
+                console.log(`Skipping resource: ${resource.name} as it is not a managed-service`);
             }
-            counter++;
         }
 
         tfvarsEntitlements += `] \n`;

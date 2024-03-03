@@ -22,8 +22,8 @@ jobs:
       PATH_TO_TFSCRIPT_SA: 'infra/setup_dev_account'
       PATH_TO_TFSCRIPT_CF: 'infra/setup_cf_spaces'
       PATH_TO_TFSCRIPT_CF_HANA: 'infra/setup_hana_on_cf'
-      MTAR_PATH: './src/gen'
-      MTAR_FILE: 'cap-app.mtar'
+      MTAR_PATH: './src'
+      MTAR_FILE: 'app.mtar'
       MTA_PATH: ''
       CF_ORG_ID: ''
       CF_ORG_NAME: ''
@@ -54,24 +54,24 @@ jobs:
         cd .github/scripts
         npm ci
 
-    - name: Install Tools
-      id: install_tools
-      run: |
-        npm install --g @sap/cds-dk
-        npm install -g mbt
+    # - name: Install Tools
+    #   id: install_tools
+    #   run: |
+    #     npm install --g @sap/cds-dk
+    #     npm install -g mbt
 
-    - name: Build CAP app
-      id: build_cap_app
-      run: |
-        cd src/
-        echo "OUTPUT OF PACKAGE.JSON FILE BEFORE cds add mta:"
-        cat package.json
-        cds add mta
-        echo "OUTPUT OF PACKAGE.JSON FILE AFTER  cds add mta:"
-        cat package.json
-        npm install
-        cds build
-        mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
+    # - name: Build CAP app
+    #   id: build_cap_app
+    #   run: |
+    #     cd src/
+    #     echo "OUTPUT OF PACKAGE.JSON FILE BEFORE cds add mta:"
+    #     cat package.json
+    #     cds add mta
+    #     echo "OUTPUT OF PACKAGE.JSON FILE AFTER  cds add mta:"
+    #     cat package.json
+    #     npm install
+    #     cds build
+    #     mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
   
     - name: Create tfvars file for services
       id: create_service_tfvars
