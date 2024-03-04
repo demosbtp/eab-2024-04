@@ -27,12 +27,32 @@ jobs:
       id: checkout_repo
       uses: actions/checkout@v4
 
-    - name: Create an issue
+    - name: Create an issue1
       uses: actions/github-script@v7
       with:
         script: |
-          github.issues.create({
+          github.issues.add({
             title: 'test issue',
             body: ${{ github.event.inputs.ISSUE_TEXT }}
           })
+    - name: Create an issue1
+      uses: actions/github-script@v7
+      with:
+        script: |
+          github.issues.add({
+            title: 'test issue',
+            body: ${{ github.event.inputs.ISSUE_TEXT }}
+          })
+
+    - name: Create an issue1
+      uses: actions/github-script@v7
+      with:
+        script: |
+            github.issues.set({
+            title: 'test issue',
+            body: ${{ github.event.inputs.ISSUE_TEXT }}
+            })
+
+        
+
 
