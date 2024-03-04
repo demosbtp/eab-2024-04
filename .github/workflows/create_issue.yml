@@ -33,6 +33,6 @@ jobs:
         script: |
           github.rest.issues.create({
             title: 'test issue',
-            body: ${{ github.event.inputs.ISSUE_TEXT }}
+            body: "TEST ISSUE BODY"
           })
  
