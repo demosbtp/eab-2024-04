@@ -31,28 +31,8 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          github.issues.add({
+          github.issues.set({
             title: 'test issue',
             body: ${{ github.event.inputs.ISSUE_TEXT }}
           })
-    - name: Create an issue1
-      uses: actions/github-script@v7
-      with:
-        script: |
-          github.issues.add({
-            title: 'test issue',
-            body: ${{ github.event.inputs.ISSUE_TEXT }}
-          })
-
-    - name: Create an issue1
-      uses: actions/github-script@v7
-      with:
-        script: |
-            github.issues.set({
-            title: 'test issue',
-            body: ${{ github.event.inputs.ISSUE_TEXT }}
-            })
-
-        
-
-
+ 
