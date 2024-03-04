@@ -30,6 +30,7 @@ jobs:
       CF_API_URL: ''
       CF_SPACE_NAME: 'dev'
       CF_SPACE_ID: ''
+      APP_URL_OUTPUT: ''
     steps:
 
     - name: Check out Git repository
@@ -137,7 +138,18 @@ jobs:
         cf_space: ${{ env.CF_SPACE_NAME }}
         command: |
           cf8 install-plugin -r CF-Community "html5-plugin" -f
-          # Fetch the list of HTML5 apps in the subaccount and only give back the one that has Launchpad in the name
-          APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')
-          echo "APP_URL_OUTPUT=$APP_URL_OUTPUT" >> $GITHUB_ENV
-          echo "URL of the app is $APP_URL_OUTPUT and was added as APP_URL_OUTPUT to the GITHUB_ENV variable"
+          echo "APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')" >> $GITHUB_ENV \
+          echo "URL of the app is ${{env.APP_URL_OUTPUT}} and was added as APP_URL_OUTPUT to the GITHUB_ENV variable"
+
+    # create an issue with the provided text
+    - name: Create issue
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Checkout app URL in datacenter ${{ inputs.REGION }}',
+            body: "The url to the app in datacenter ${{ inputs.REGION }} is ${{ env.APP_URL_OUTPUT }}"
+          })
