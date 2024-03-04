@@ -36,7 +36,7 @@ jobs:
         script: |
           github.rest.issues.create({
             owner: ${{ github.repository_owner }},
-            repo: ${{ github.repository }},
+            repo: 'eab-2024-04',
             title: 'Test issue',
             body: "${{ github.event.inputs.ISSUE_TEXT }}"
           })
