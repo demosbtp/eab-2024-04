@@ -1,4 +1,4 @@
-name: Create a new project via Terraform
+name: Create issue test
 
 on:
   workflow_dispatch:
