@@ -34,6 +34,6 @@ jobs:
         command: |
           cf8 install-plugin -r CF-Community "html5-plugin" -f \
           # Fetch the list of HTML5 apps in the subaccount and only give back the one that has Launchpad in the name
-          APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')"
+          APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')
           echo "APP_URL_OUTPUT=$APP_URL_OUTPUT" >> $GITHUB_ENV
           echo "$APP_URL_OUTPUT"
