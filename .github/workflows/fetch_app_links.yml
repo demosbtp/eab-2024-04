@@ -2,15 +2,8 @@ name: Fetch the list of HTML5 apps in an SAP subaccount
 
 on:
   workflow_dispatch:
-    inputs:
-      SUBACCOUNT:
-        description: 'The subaccount with the HTML5 apps'
-        required: true
+
   workflow_call:
-    inputs:
-      SUBACCOUNT:
-        required: true
-        type: string
 
 jobs:
   execute_infra_setup:
