@@ -53,26 +53,7 @@ jobs:
       run: |
         cd .github/scripts
         npm ci
-
-    # - name: Install Tools
-    #   id: install_tools
-    #   run: |
-    #     npm install --g @sap/cds-dk
-    #     npm install -g mbt
-
-    # - name: Build CAP app
-    #   id: build_cap_app
-    #   run: |
-    #     cd src/
-    #     echo "OUTPUT OF PACKAGE.JSON FILE BEFORE cds add mta:"
-    #     cat package.json
-    #     cds add mta
-    #     echo "OUTPUT OF PACKAGE.JSON FILE AFTER  cds add mta:"
-    #     cat package.json
-    #     npm install
-    #     cds build
-    #     mbt build -t=gen --mtar ${{ env.MTAR_FILE }}
-  
+ 
     - name: Create tfvars file for services
       id: create_service_tfvars
       run: |

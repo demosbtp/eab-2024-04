@@ -1,0 +1,42 @@
+name: Fetch the list of HTML5 apps in an SAP subaccount
+
+on:
+  workflow_dispatch:
+    inputs:
+      SUBACCOUNT:
+        description: 'The subaccount with the HTML5 apps'
+        required: true
+  workflow_call:
+    inputs:
+      SUBACCOUNT:
+        required: true
+        type: string
+
+jobs:
+  execute_infra_setup:
+    name: Project Setup
+    runs-on: ubuntu-latest
+    env: 
+      CF_ORG_ID: ''
+      CF_ORG_NAME: 'eab-2024-04'
+      CF_API_URL: 'https://api.cf.us10.hana.ondemand.com'
+      CF_SPACE_NAME: 'dev'
+      CF_SPACE_ID: ''
+    steps:
+
+    - name: Check out Git repository
+      id: checkout_repo
+      uses: actions/checkout@v4
+     
+
+    - name: Assign CF users
+      id: assign_cf_users
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: ${{ env.CF_API_URL }}
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: ${{ env.CF_ORG_NAME }}
+        cf_space: ${{ env.CF_SPACE_NAME }}
+        command: |
+          cf8 html5-list 

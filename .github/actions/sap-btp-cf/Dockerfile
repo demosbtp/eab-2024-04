@@ -8,7 +8,8 @@ RUN apt-get update
 RUN apt-get install -y cf8-cli
 
 # Add support for MTA deployment
-RUN cf8 install-plugin multiapps -f
+RUN cf8 install-plugin multiapps -f \
+    && cf8 install-plugin -r CF-Community "html5-plugin"
 
 ADD entrypoint.sh /entrypoint.sh
 ENTRYPOINT ["/entrypoint.sh"]
