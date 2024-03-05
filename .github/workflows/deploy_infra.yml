@@ -50,7 +50,7 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             title: 'Check foodshop app in datacenter us10',
-            body: "<img src='https://d.dam.sap.com/a/6bt3byG?rc=10' width='40'>\nThe **foodshop**' app has been deployed in the datacenter **us10** and is now available.\n\nPlease check it at\nhttps://btpeab24.launchpad.cfapps.us10.hana.ondemand.com/lcapfoodshop.foodshopLaunchpad-1.0.0/"
+            body: "<img src='https://d.dam.sap.com/a/6bt3byG?rc=10' width='40'>\nThe **foodshop** app has been deployed in the datacenter **us10** and is now available.\n\nPlease check it at\nhttps://btpeab24.launchpad.cfapps.us10.hana.ondemand.com/lcapfoodshop.foodshopLaunchpad-1.0.0/"
             
           })      
 
