@@ -157,6 +157,6 @@ jobs:
           github.rest.issues.create({
             owner: context.repo.owner,
             repo: context.repo.repo,
-            title: 'Check ${{ env.APP_URL_OUTPUT }} app in datacenter ${{ inputs.REGION }}',
+            title: 'Check ${{ env.APP_ID }} app in datacenter ${{ inputs.REGION }}',
             body: "The '${{ env.APP_ID }}' app in datacenter ${{ inputs.REGION }} is now available.\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
           })
