@@ -1,0 +1,32 @@
+name: 🚀 Check deployed app
+description: Report the availability of the deployed app
+title: "[Deployed app]: <title>"
+labels: [deployed-app]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        <img src="https://d.dam.sap.com/a/6bt3byG?rc=10" width="40">
+       
+        ## Your app has been deployed. Please provide the following details:
+- type: textarea
+  id: app-id
+  attributes:
+    label: App ID
+    description: The ID of the deployed app.
+  validations:
+    required: false
+- type: textarea
+  id: datacenter
+  attributes:
+    label: Datacenter
+    description: The datacenter where the app is deployed.
+  validations:
+    required: false
+- type: textarea
+  id: app-url
+  attributes:
+    label: URL of the deployed app
+    description: The URL of the deployed app.
+  validations:
+    required: false
