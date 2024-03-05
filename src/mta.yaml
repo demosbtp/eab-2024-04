@@ -1,5 +1,5 @@
 _schema-version: '3.1'
-ID: foodshop
+ID: flatrental
 version: 1.0.0
 description: A simple CAP project.
 parameters:
@@ -26,9 +26,9 @@ build-parameters:
       commands:
         - npm install
 modules:
-  - name: foodshop-foodshop.Food
+  - name: flatrental-flatrental.MyApplication
     type: html5
-    path: app/foodshop.Food
+    path: app/flatrental.MyApplication
     build-parameters:
       builder: custom
       commands:
@@ -38,11 +38,13 @@ modules:
           --include-task=generateManifestBundle
           --include-task=generateCachebusterInfo
         - mkdir dist-zip
-        - bash -c "cd dist && npx bestzip ../dist-zip/foodshopFood.zip *"
-      _artifactName: foodshopFood.zip
+        - >-
+          bash -c "cd dist && npx bestzip
+          ../dist-zip/flatrentalMyApplication.zip *"
+      _artifactName: flatrentalMyApplication.zip
       supported-platforms: []
       build-result: dist-zip
-  - name: foodshop-db-deployer
+  - name: flatrental-db-deployer
     type: hdb
     path: gen/db
     parameters:
@@ -53,9 +55,9 @@ modules:
         - node_modules
         - package-lock.json
     requires:
-      - name: foodshop-service-uaa
-      - name: foodshop-service-db
-  - name: foodshop-srv
+      - name: flatrental-service-uaa
+      - name: flatrental-service-db
+  - name: flatrental-srv
     type: nodejs
     path: gen/srv
     parameters:
@@ -70,13 +72,13 @@ modules:
         - node_modules
         - package-lock.json
     requires:
-      - name: foodshop-service-uaa
-      - name: foodshop-service-db
-      - name: foodshop-service-destination
-      - name: foodshop-service-metadata
-      - name: foodshop-service-connectivity
-      - name: foodshop-service-logs
-  - name: foodshop-aux-destinations
+      - name: flatrental-service-uaa
+      - name: flatrental-service-db
+      - name: flatrental-service-destination
+      - name: flatrental-service-metadata
+      - name: flatrental-service-connectivity
+      - name: flatrental-service-logs
+  - name: flatrental-aux-destinations
     type: com.sap.application.content
     parameters:
       content:
@@ -84,26 +86,26 @@ modules:
           existing_destinations_policy: update
           destinations:
             - Authentication: OAuth2UserTokenExchange
-              Name: foodshop-service-uaa
-              ServiceInstanceName: foodshop-uaa
-              ServiceKeyName: foodshop-uaa-key
-              sap.cloud.service: lcap.foodshop
+              Name: flatrental-service-uaa
+              ServiceInstanceName: flatrental-uaa
+              ServiceKeyName: flatrental-uaa-key
+              sap.cloud.service: lcap.flatrental
             - Authentication: OAuth2UserTokenExchange
-              Name: foodshop-app-srv
-              TokenServiceInstanceName: foodshop-uaa
-              TokenServiceKeyName: foodshop-uaa-key
+              Name: flatrental-app-srv
+              TokenServiceInstanceName: flatrental-uaa
+              TokenServiceKeyName: flatrental-uaa-key
               URL: ~{srv-api/srv-url}
-              sap.cloud.service: lcap.foodshop
-            - Name: foodshop-service-html5-apps-repo-host
-              ServiceInstanceName: foodshop-html5-apps-repo-host
-              ServiceKeyName: foodshop-html5-apps-repo-host-key
-              sap.cloud.service: lcap.foodshop
+              sap.cloud.service: lcap.flatrental
+            - Name: flatrental-service-html5-apps-repo-host
+              ServiceInstanceName: flatrental-html5-apps-repo-host
+              ServiceKeyName: flatrental-html5-apps-repo-host-key
+              sap.cloud.service: lcap.flatrental
             - Authentication: OAuth2UserTokenExchange
-              Name: foodshop-foodsrvService
-              TokenServiceInstanceName: foodshop-uaa
-              TokenServiceKeyName: foodshop-uaa-key
-              URL: ~{srv-api/srv-url}/service/foodsrv
-              sap.cloud.service: lcap.foodshop
+              Name: flatrental-rentalService
+              TokenServiceInstanceName: flatrental-uaa
+              TokenServiceKeyName: flatrental-uaa-key
+              URL: ~{srv-api/srv-url}/service/rental
+              sap.cloud.service: lcap.flatrental
               sap.applicationdevelopment.actions.enabled: false
               sap.build.usage: CAP
               sap.processautomation.enabled: false
@@ -114,19 +116,19 @@ modules:
     build-parameters:
       no-source: true
     requires:
-      - name: foodshop-service-uaa
+      - name: flatrental-service-uaa
         parameters:
           service-key:
-            name: foodshop-uaa-key
+            name: flatrental-uaa-key
       - name: srv-api
-      - name: foodshop-service-html5-apps-repo-host
+      - name: flatrental-service-html5-apps-repo-host
         parameters:
           service-key:
-            name: foodshop-html5-apps-repo-host-key
-      - name: foodshop-service-destination
+            name: flatrental-html5-apps-repo-host-key
+      - name: flatrental-service-destination
         parameters:
           content-target: true
-  - name: foodshop-launchpad
+  - name: flatrental-launchpad
     type: html5
     path: build/launchpad
     build-parameters:
@@ -142,76 +144,76 @@ modules:
       _artifactName: launchpad.zip
       supported-platforms: []
       build-result: ../../build/dist
-  - name: foodshop-aux-ui-deployer
+  - name: flatrental-aux-ui-deployer
     type: com.sap.application.content
     path: build/ui-deployer
     build-parameters:
       build-result: resources
       requires:
-        - name: foodshop-foodshop.Food
+        - name: flatrental-flatrental.MyApplication
           artifacts:
-            - foodshopFood.zip
+            - flatrentalMyApplication.zip
           target-path: resources
-        - name: foodshop-launchpad
+        - name: flatrental-launchpad
           artifacts:
             - launchpad.zip
           target-path: resources
     requires:
-      - name: foodshop-service-html5-apps-repo-host
+      - name: flatrental-service-html5-apps-repo-host
         parameters:
           content-target: true
 resources:
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-uaa
+    name: flatrental-service-uaa
     parameters:
       service: xsuaa
       service-plan: application
-      service-name: foodshop-uaa
+      service-name: flatrental-uaa
       path: xs-security.json
       config:
         oauth2-configuration:
           redirect-uris:
             - https://*.${default-domain}/login/*
-        xsappname: foodshop-${space}
+        xsappname: flatrental-${space}
         role-collections: []
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-db
+    name: flatrental-service-db
     parameters:
       service: hana
       service-plan: hdi-shared
-      service-name: foodshop-db
+      service-name: flatrental-db
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-destination
+    name: flatrental-service-destination
     parameters:
       service: destination
       service-plan: lite
-      service-name: foodshop-destination
+      service-name: flatrental-destination
       config:
         HTML5Runtime_enabled: true
         version: 1.0.0
   - type: org.cloudfoundry.user-provided-service
-    name: foodshop-service-metadata
+    name: flatrental-service-metadata
     parameters:
       service: metadata
       service-plan: standard
-      service-name: foodshop-metadata
+      service-name: flatrental-metadata
       config:
         default-domain: ${default-domain}
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-connectivity
+    name: flatrental-service-connectivity
     parameters:
       service: connectivity
       service-plan: lite
-      service-name: foodshop-connectivity
+      service-name: flatrental-connectivity
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-logs
+    name: flatrental-service-logs
     parameters:
       service: application-logs
       service-plan: lite
-      service-name: foodshop-logs
+      service-name: flatrental-logs
   - type: org.cloudfoundry.managed-service
-    name: foodshop-service-html5-apps-repo-host
+    name: flatrental-service-html5-apps-repo-host
     parameters:
       service: html5-apps-repo
       service-plan: app-host
-      service-name: foodshop-html5-apps-repo-host
+      service-name: flatrental-html5-apps-repo-host
