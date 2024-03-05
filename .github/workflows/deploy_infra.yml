@@ -158,5 +158,5 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             title: 'Check ${{ env.APP_ID }} app in datacenter ${{ inputs.REGION }}',
-            body: "The '${{ env.APP_ID }}' app in datacenter ${{ inputs.REGION }} is now available.\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
+            body: "The **${{ env.APP_ID }}**' app has been deployed in the datacenter **${{ inputs.REGION }}** and is now available.\n\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
           })
