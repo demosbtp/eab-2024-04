@@ -41,7 +41,7 @@ jobs:
     - name: Fetch app ID
       id : app_id
       run: |
-        export APP_ID=$(cat "${{MTA_PATH}}/${{MTA_YAML_FILE}}" | grep -Eo 'ID: [a-zA-Z0-9_-]*' | sed -e 's/id: //g')
+        export APP_ID=$(cat "${{env.MTAR_PATH}}/${{env.MTA_YAML_FILE}}" | grep -Eo 'ID: [a-zA-Z0-9_-]*' | sed -e 's/id: //g')
         echo "APP_ID=$APP_ID" >> $GITHUB_ENV
         echo "APP_ID is $APP_ID and was added as APP_ID to the GITHUB_ENV variable"
         
