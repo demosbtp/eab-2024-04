@@ -1,6 +1,6 @@
 name: 🚀 Check deployed app
 description: Report the availability of the deployed app
-title: "<title>"
+title: "[Deployed app]: <title>"
 labels: [deployed-app]
 body:
 - type: textarea
