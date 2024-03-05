@@ -158,5 +158,5 @@ jobs:
             owner: context.repo.owner,
             repo: context.repo.repo,
             title: 'Check ${{ env.APP_ID }} app in datacenter ${{ inputs.REGION }}',
-            body: "<img src=\"https://d.dam.sap.com/a/6bt3byG?rc=10\" width=\"60\"/>\n\nThe **${{ env.APP_ID }}**' app has been deployed in the datacenter **${{ inputs.REGION }}** and is now available.\n\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
+            body: "<img src=\"https://d.dam.sap.com/a/6bt3byG?rc=10\" width=\"60\"/>\n\nThe **${{ env.APP_ID }}** app has been deployed in the datacenter **${{ inputs.REGION }}** and is now available.\n\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
           })
