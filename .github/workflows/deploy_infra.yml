@@ -32,132 +32,131 @@ jobs:
       CF_SPACE_NAME: 'dev'
       CF_SPACE_ID: ''
       APP_URL_OUTPUT: ''
+      APP_ID: ''
     steps:
 
     - name: Check out Git repository
       id: checkout_repo
       uses: actions/checkout@v4
     
-    - name: Fetch app ID
-      id : app_id
+       
+    - name: Setup Terraform
+      id : setup_terraform
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_wrapper: false
+        terraform_version: latest
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 20    
+
+    - name: Install npm dependencies
+      id: install_node_dependencies
       run: |
-        export APP_ID=$(cat "${{env.MTAR_PATH}}/${{env.MTA_YAML_FILE}}" | grep -Eo 'ID: [a-zA-Z0-9_-]*' | sed -e 's/id: //g')
-        echo "APP_ID=$APP_ID" >> $GITHUB_ENV
-        echo "APP_ID is $APP_ID and was added as APP_ID to the GITHUB_ENV variable"
-        
-    # - name: Setup Terraform
-    #   id : setup_terraform
-    #   uses: hashicorp/setup-terraform@v3
-    #   with:
-    #     terraform_wrapper: false
-    #     terraform_version: latest
-    
-    # - name: Setup Node.js
-    #   uses: actions/setup-node@v4
-    #   with:
-    #     node-version: 20    
-
-    # - name: Install npm dependencies
-    #   id: install_node_dependencies
-    #   run: |
-    #     cd .github/scripts
-    #     npm ci
+        cd .github/scripts
+        npm ci
  
-    # - name: Create tfvars file for services
-    #   id: create_service_tfvars
-    #   run: |
-    #     cd .github/scripts
-    #     export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT_SA }} 
-    #     export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
-    #     npm run build:servicetfvars
+    - name: Create tfvars file for services
+      id: create_service_tfvars
+      run: |
+        cd .github/scripts
+        export PATH_TO_TFSCRIPT=${{ env.PATH_TO_TFSCRIPT_SA }} 
+        export MTA_PATH=$(find . -type f -name 'mta.yaml' | sed -e 's,^\./,,')
+        npm run build:servicetfvars
   
-    # - name: Terraform Init for Subaccount
-    #   id: terraform_init_sa
-    #   shell: bash
-    #   run: |
-    #     terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
+    - name: Terraform Init for Subaccount
+      id: terraform_init_sa
+      shell: bash
+      run: |
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_SA }} init -no-color
     
-    # - name: Terraform Apply Subaccount Setup
-    #   id: terraform_apply_sa
-    #   shell: bash
-    #   # We do not store the Terraform state - in a real setup we would reference a remote backend
-    #   run: |
-    #     export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
-    #     export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
-    #     terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.REGION }}' -var subaccount_name='EAB 2024 04' -var-file='serviceentitlements.tfvars'
-    #     echo "CF_ORG_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_id)" >> "$GITHUB_ENV"
-    #     echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
-    #     echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
+    - name: Terraform Apply Subaccount Setup
+      id: terraform_apply_sa
+      shell: bash
+      # We do not store the Terraform state - in a real setup we would reference a remote backend
+      run: |
+        export BTP_USERNAME=${{ secrets.BTP_USERNAME }}
+        export BTP_PASSWORD=${{ secrets.BTP_PASSWORD }}
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' apply -auto-approve -no-color -var globalaccount='${{ secrets.GLOBALACCOUNT }}' -var region='${{ inputs.REGION }}' -var subaccount_name='EAB 2024 04' -var-file='serviceentitlements.tfvars'
+        echo "CF_ORG_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_id)" >> "$GITHUB_ENV"
+        echo "CF_ORG_NAME=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_org_name)" >> "$GITHUB_ENV"
+        echo "CF_API_URL=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_SA }}' output -raw -no-color cf_api_endpoint)" >> "$GITHUB_ENV"
     
-    # - name: Terraform Init for Cloud Foundry Space
-    #   id: terraform_init_cf
-    #   shell: bash
-    #   run: |
-    #     terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
+    - name: Terraform Init for Cloud Foundry Space
+      id: terraform_init_cf
+      shell: bash
+      run: |
+        terraform -chdir=${{ env.PATH_TO_TFSCRIPT_CF }} init -no-color
 
-    # - name: Terraform Apply Cloud Foundry Space Setup and Service instances
-    #   id: terraform_setup_cf
-    #   shell: bash
-    #   run: |
-    #     export CF_USER=${{ secrets.BTP_USERNAME }}
-    #     export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
-    #     export CF_API_URL=${{ env.CF_API_URL }}
-    #     terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
-    #     echo "CF_SPACE_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' output -raw -no-color cf_space_id)" >> "$GITHUB_ENV"
+    - name: Terraform Apply Cloud Foundry Space Setup and Service instances
+      id: terraform_setup_cf
+      shell: bash
+      run: |
+        export CF_USER=${{ secrets.BTP_USERNAME }}
+        export CF_PASSWORD=${{ secrets.BTP_PASSWORD }}
+        export CF_API_URL=${{ env.CF_API_URL }}
+        terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' apply -auto-approve -no-color -var cf_org_id='${{ env.CF_ORG_ID }}' -var cf_space_name='${{ env.CF_SPACE_NAME }}'
+        echo "CF_SPACE_ID=$(terraform -chdir='${{ env.PATH_TO_TFSCRIPT_CF }}' output -raw -no-color cf_space_id)" >> "$GITHUB_ENV"
 
-    # - name: Assign CF users
-    #   id: assign_cf_users
-    #   uses: ./.github/actions/sap-btp-cf
-    #   with:
-    #     cf_api: ${{ env.CF_API_URL }}
-    #     cf_username: ${{ secrets.BTP_USERNAME }}
-    #     cf_password: ${{ secrets.BTP_PASSWORD }}
-    #     cf_org: ${{ env.CF_ORG_NAME }}
-    #     cf_space: ${{ env.CF_SPACE_NAME }}
-    #     command: |
-    #       cf8 set-org-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} OrgManager \
-    #       && cf8 set-org-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} OrgManager --origin sap.ids\
-    #       && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager \
-    #       && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper \
-    #       && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.ids\
-    #       && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.ids
+    - name: Assign CF users
+      id: assign_cf_users
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: ${{ env.CF_API_URL }}
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: ${{ env.CF_ORG_NAME }}
+        cf_space: ${{ env.CF_SPACE_NAME }}
+        command: |
+          cf8 set-org-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} OrgManager \
+          && cf8 set-org-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} OrgManager --origin sap.ids\
+          && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager \
+          && cf8 set-space-role rui.nogueira@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper \
+          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceManager  --origin sap.ids\
+          && cf8 set-space-role christian.lechner@sap.com ${{ env.CF_ORG_NAME }} ${{ env.CF_SPACE_NAME }} SpaceDeveloper  --origin sap.ids
 
-    # - name: Deploy MTAR
-    #   id: deploy_mtar
-    #   uses: ./.github/actions/sap-btp-cf
-    #   with:
-    #     cf_api: ${{ env.CF_API_URL }}
-    #     cf_username: ${{ secrets.BTP_USERNAME }}
-    #     cf_password: ${{ secrets.BTP_PASSWORD }}
-    #     cf_org: ${{ env.CF_ORG_NAME }}
-    #     cf_space: ${{ env.CF_SPACE_NAME }}
-    #     command: |
-    #       cf8 install-plugin -f multiapps
-    #       cf8 deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
+    - name: Deploy MTAR
+      id: deploy_mtar
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: ${{ env.CF_API_URL }}
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: ${{ env.CF_ORG_NAME }}
+        cf_space: ${{ env.CF_SPACE_NAME }}
+        command: |
+          cf8 install-plugin -f multiapps
+          cf8 deploy ${{ env.MTAR_PATH }}/${{ env.MTAR_FILE }} -f
 
-    # - name: Fetch app details
-    #   id: fetch_app_url
-    #   uses: ./.github/actions/sap-btp-cf
-    #   with:
-    #     cf_api: ${{ env.CF_API_URL }}
-    #     cf_username: ${{ secrets.BTP_USERNAME }}
-    #     cf_password: ${{ secrets.BTP_PASSWORD }}
-    #     cf_org: ${{ env.CF_ORG_NAME }}
-    #     cf_space: ${{ env.CF_SPACE_NAME }}
-    #     command: |
-    #       cf8 install-plugin -r CF-Community "html5-plugin" -f
-    #       echo "APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')" >> $GITHUB_ENV 
-    #       echo "URL of the app is ${{env.APP_URL_OUTPUT}} and was added as APP_URL_OUTPUT to the GITHUB_ENV variable"
+    - name: Fetch app details
+      id: fetch_app_url
+      uses: ./.github/actions/sap-btp-cf
+      with:
+        cf_api: ${{ env.CF_API_URL }}
+        cf_username: ${{ secrets.BTP_USERNAME }}
+        cf_password: ${{ secrets.BTP_PASSWORD }}
+        cf_org: ${{ env.CF_ORG_NAME }}
+        cf_space: ${{ env.CF_SPACE_NAME }}
+        command: |
+          cf8 install-plugin -r CF-Community "html5-plugin" -f
+          echo "APP_URL_OUTPUT=$(cf html5-list -d -u | grep -Eo '(http|https)://[a-zA-Z0-9./?=_%:-]*' | grep -Eo '.*Launchpad.*' | sed -e 's/.cpp./.launchpad./g')" >> $GITHUB_ENV 
+          echo "URL of the app is ${{env.APP_URL_OUTPUT}} and was added as APP_URL_OUTPUT to the GITHUB_ENV variable"
+          export APP_ID=$(cat "${{env.MTAR_PATH}}/${{env.MTA_YAML_FILE}}" | grep -Eo 'ID: [a-zA-Z0-9_-]*' | sed -e 's/ID: //g')
+          echo "APP_ID=$APP_ID" >> $GITHUB_ENV
+          echo "APP_ID is $APP_ID and was added as APP_ID to the GITHUB_ENV variable"
+  
 
-    # # create an issue with the provided text
-    # - name: Create issue
-    #   uses: actions/github-script@v7
-    #   with:
-    #     github-token: ${{ secrets.GITHUB_TOKEN }}
-    #     script: |
-    #       github.rest.issues.create({
-    #         owner: context.repo.owner,
-    #         repo: context.repo.repo,
-    #         title: 'Checkout app URL in datacenter ${{ inputs.REGION }}',
-    #         body: "The url to the app in datacenter ${{ inputs.REGION }} is ${{ env.APP_URL_OUTPUT }}"
-    #       })
+    # create an issue with the provided text
+    - name: Create issue
+      uses: actions/github-script@v7
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.create({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            title: 'Check ${{ env.APP_URL_OUTPUT }} app in datacenter ${{ inputs.REGION }}',
+            body: "The '${{ env.APP_ID }}' app in datacenter ${{ inputs.REGION }} is now available.\nPlease check it at\n${{ env.APP_URL_OUTPUT }}"
+          })

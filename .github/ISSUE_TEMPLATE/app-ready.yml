@@ -1,0 +1,26 @@
+name: 🚀 Check deployed app
+description: Report the availability of the deployed app
+title: "<title>"
+labels: [deployed-app]
+body:
+- type: textarea
+  id: app-id
+  attributes:
+    label: App ID
+    description: The ID of the deployed app.
+  validations:
+    required: false
+- type: textarea
+  id: datacenter
+  attributes:
+    label: Datacenter
+    description: The datacenter where the app is deployed.
+  validations:
+    required: false
+- type: textarea
+  id: app-url
+  attributes:
+    label: URL of the deployed app
+    description: The URL of the deployed app.
+  validations:
+    required: false
