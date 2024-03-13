@@ -101,10 +101,10 @@ modules:
               ServiceKeyName: flatrental-html5-apps-repo-host-key
               sap.cloud.service: lcap.flatrental
             - Authentication: OAuth2UserTokenExchange
-              Name: flatrental-rentalService
+              Name: flatrental-flatsService
               TokenServiceInstanceName: flatrental-uaa
               TokenServiceKeyName: flatrental-uaa-key
-              URL: ~{srv-api/srv-url}/service/rental
+              URL: ~{srv-api/srv-url}/service/flats
               sap.cloud.service: lcap.flatrental
               sap.applicationdevelopment.actions.enabled: false
               sap.build.usage: CAP
