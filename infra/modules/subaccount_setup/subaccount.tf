@@ -11,7 +11,7 @@ terraform {
 # Setup subaccount domain (to ensure uniqueness in BTP global account)
 # ------------------------------------------------------------------------------------------------------
 locals {
-  project_subaccount_domain = "btpeab24"
+  project_subaccount_domain = "btpeab2404"
 
   role_mapping_admins = distinct(flatten([
     for admin in var.admins : [
