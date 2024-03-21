@@ -2,7 +2,7 @@ terraform {
   required_providers {
     btp = {
       source  = "SAP/btp"
-      version = "~>1.0.0"
+      version = "~>1.1.0"
     }
   }
 }
@@ -11,7 +11,7 @@ terraform {
 # Setup subaccount domain (to ensure uniqueness in BTP global account)
 # ------------------------------------------------------------------------------------------------------
 locals {
-  project_subaccount_domain = "btpeab2404"
+  project_subaccount_domain = concat(["btpeab-24", formatdate("MMDDhhmm", timestamp())])
 
   role_mapping_admins = distinct(flatten([
     for admin in var.admins : [
