@@ -37,7 +37,7 @@ jobs:
 
     - name: Check out Git repository
       id: checkout_repo
-      uses: actions/checkout@v4
+      uses: actions/checkout@v5
     
 
     - name: Setup Terraform
